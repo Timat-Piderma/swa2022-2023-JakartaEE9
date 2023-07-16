@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>AuleWeb REST STDT application (JakartaEE 9)</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="res/restest.css"/>
+
+        <style>
+            .hidden {
+                display: none;
+            }
+        </style>
+
+        <script>
+            function showTable(tableId) {
+                // Hide all tables
+                var tables = document.querySelectorAll('.content-table');
+                for (var i = 0; i < tables.length; i++) {
+                    tables[i].classList.add('hidden');
+                }
+
+                // Show the selected table
+                var table = document.getElementById(tableId);
+                table.classList.remove('hidden');
+            }
+        </script>
+    </head>
+    <body>
+        <div class="row" id="header">
+
+            <div id="logo">
+                <a href="https://www.univaq.it/">
+                    <image style="margin-left: 50px; width: 80px; height: 100px" title="Logo" src="  https://upload.wikimedia.org/wikipedia/it/2/2b/Logo_Universit%C3%A0_degli_Studi_dell%27Aquila.gif">
+                </a>   
+            </div>
+
+            <div id="title">Universita' degli studi dell'Aquila</div>
+            <div id="header">
+                <div class="topnav">
+                    <a href="listgruppi">Homepage</a>
+                </div>
+            </div> 
+        </div>
+        <div>
+            <h1>AuleWeb REST STDT application (JakartaEE 9)</h1>
+            <p>L'applicazione permette di fare:</p>
+            <ul>
+
+                <li><a href="#" onclick="showTable('loginTable')">Login/logout con username e password (per gli amministratori).</a></li>
+                <li><a href="#" onclick="showTable('insertAulaTable')">Inserimento di una nuova aula.</a></li>
+                <li><a href="#" onclick="showTable('informazioniAulaTable')">Lettura delle informazioni di base relative a un'aula.</a></li>
+                <li><a href="#" onclick="showTable('attrezzatureAulaTable')">Lista delle attrezzature presenti in un'aula.</a></li>
+                <li><a href="#" onclick="showTable('insertEventoTable')">Inserimento di un nuovo evento.</a></li>
+                <li><a href="#" onclick="showTable('modificaEventoTable')">Modifica di un evento.</a></li>
+                <li><a href="#" onclick="showTable('informazioniEventoTable')">Lettura delle informazioni su un evento.</a></li>
+                <li><a href="#" onclick="showTable('eventiAulaSettimanaTable')">Lista degli eventi associati a una specifica aula in una determinata settimana.</a></li>
+                <li><a href="#" onclick="showTable('eventiAttualiTable')">Lista degli eventi attuali e quelli delle prossime tre ore.</a></li>
+                <li><a href="#" onclick="showTable('esportazioneEventiTable')">Esportazione di tutti gli eventi relativi a un certo intervallo di tempo.</a></li> 
+            </ul>
+        </div>
+
+        <div class="hidden content-table" id="loginTable">
+            <table id="autenticazione" width="100%">
+                <thead>
+                    <tr>
+                        <th>Path</th>
+                        <th>Method</th>
+                        <th>Parameters</th>
+                        <th>Payload</th>
+                        <th>Authentication</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td ><span data-rest-test-token  data-rest-test-url="rest/auth/login" data-rest-test-method="post" data-rest-test-status="200"
+                                   data-rest-test-content-type="application/x-www-form-urlencoded" data-rest-test-payload="username=username&password=password">/auth/login</span></td>
+                        <td>POST</td>
+                        <td></td>
+                        <td>form-encoded username and password</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td ><span data-rest-test-auth="1000"  data-rest-test-url="rest/auth/logout" data-rest-test-method="delete" data-rest-test-status="204">/auth/logout</span></td>
+                        <td>DELETE</td>
+                        <td></td>
+                        <td></td>
+                        <td>Bearer token</td>
+                    </tr>
+                    <tr>
+                        <td ><span data-rest-test-auth  data-rest-test-url="rest/auth/refresh" data-rest-test-method="get" data-rest-test-status="200">/auth/refresh</span></td>
+                        <td>GET</td>
+                        <td></td>
+                        <td></td>
+                        <td>Bearer token</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="5">                        
+                            <form method="post" action="rest/auth/login" enctype="application/x-www-form-urlencoded">
+                                <div class="container_log">
+                                    <label for="u"><b>Username</b></label>
+                                    <input style="width:30%" type="text" value="usernam" id="username-field" name="username-field"/> 
+                                    <label for="p"><b>Password</b></label> 
+                                    <input style="width:30%" type="password" value="password" id="password-field" name="password-field"/>
+                                    <input type="submit" value="login" name="login-button" id="login-button"/>
+                                    <input type="submit" value="logout" name="logout-button" id="logout-button"/>   
+                                </div>
+                            </form>
+                            <form method="post" action="rest/auth/login" enctype="application/x-www-form-urlencoded">
+                                <p>Token: <input style="width:80%" type="text" id="token-field" name="token-field"/> <input type="submit" value="refresh" name="refresh-button" id="refresh-button"/></p>
+                            </form>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+
+        <div class="hidden content-table" id="insertAulaTable">
+            <table class="restest" width="100%">
+                <thead>
+                    <tr>
+                        <th>Path</th>
+                        <th>Method</th>
+                        <th>Parameters</th>
+                        <th>Payload</th>
+                        <th>Authentication</th>
+                        <th>URL to Try</th>
+                        <th>(Expected) Result</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>POST</td>
+                        <td></td>
+                        <td>
+
+                            <form  method="post" action="rest/aule" enctype="application/x-www-form-urlencoded" >
+                                <input type="text" name="nome" placeholder="Nome">
+                                <input type="text" name="capienza" placeholder="Capienza">
+                                <input type="text" name="emailresponsabile" placeholder="Email Responsabile">
+                                <input type="text" name="note" placeholder="Note">
+                                <input type="text" name="numeropreseelettriche" placeholder="Numero prese elettriche">
+                                <input type="text" name="numeropreserete" placeholder="Numero prese di rete">
+                                <input type="text" name="idgruppo" placeholder="ID del gruppo">
+                                <input type="text" name="idposizione" placeholder="ID della posizione">
+
+                                <input style="margin: 10px" type="submit" name="update" value="Aggiungi Aula"/> 
+                            </form>
+
+                        </td>
+                        <td>Bearer token</td>
+                        <td></td>
+                        <td class="output">Inserimento di un Aula</td>
+                    </tr> 
+                </tbody>
+            </table>
+        </div>
+
+        <div class="hidden content-table" id="informazioniAulaTable">
+            <table class="restest" width="100%">
+                <thead>
+                    <tr>
+                        <th>Path</th>
+                        <th>Method</th>
+                        <th>Parameters</th>
+                        <th>Payload</th>
+                        <th>Authentication</th>
+                        <th>URL to Try</th>
+                        <th>(Expected) Result</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td rowspan="2">/aule</td>
+                        <td>GET</td>
+                        <td>idaula: [0-9]+</td>
+                        <td></td>
+                        <td></td>
+                        <td><a data-rest-test data-rest-test-target href="rest/aule/1"><small>GET rest/aule/1</small></a></td>
+                        <td  class="output">Informazioni di un aula</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="hidden content-table" id="attrezzatureAulaTable">
+            <table class="restest" width="100%">
+                <thead>
+                    <tr>
+                        <th>Path</th>
+                        <th>Method</th>
+                        <th>Parameters</th>
+                        <th>Payload</th>
+                        <th>Authentication</th>
+                        <th>URL to Try</th>
+                        <th>(Expected) Result</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td rowspan="1">/attrezzature</td>
+                        <td>GET</td>
+                        <td>idaula: [0-9]+</td>
+                        <td></td>
+                        <td></td>
+                        <td><a data-rest-test data-rest-test-target href="rest/attrezzature/2"><small>GET rest/attrezzature/2</small></a></td>
+                        <td  class="output">Una lista di attrezzature di un'aula</td>
+                    </tr>   
+                </tbody>
+            </table>
+        </div>
+
+        <div class="hidden content-table" id="insertEventoTable">
+            <table class="restest" width="100%">
+                <thead>
+                    <tr>
+                        <th>Path</th>
+                        <th>Method</th>
+                        <th>Parameters</th>
+                        <th>Payload</th>
+                        <th>Authentication</th>
+                        <th>URL to Try</th>
+                        <th>(Expected) Result</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>POST</td>
+                        <td></td>
+                        <td>
+
+                            <form  method="post" action="rest/eventi" enctype="application/x-www-form-urlencoded" >
+                                <input type="text" name="giorno" placeholder="Giorno">
+                                <input type="text" name="oraInizio" placeholder="Ora di inizio">
+                                <input type="text" name="oraFine" placeholder="Ora di fine">
+                                <input type="text" name="descrizione" placeholder="Descrizione">
+                                <input type="text" name="nome" placeholder="Nome">
+                                <input type="text" name="tipologia" placeholder="Tipologia">
+                                <input type="text" name="idaula" placeholder="ID dell'Aula">
+                                <input type="text" name="idresponsabile" placeholder="ID del Responsabile">
+                                <input type="text" name="idcorso" placeholder="ID del Corso">
+
+                                <input style="margin: 10px" type="submit" name="update" value="Aggiungi Evento"/> 
+                            </form>
+
+                        </td>
+                        <td>Bearer token</td>
+                        <td></td>
+                        <td class="output">Inserimento di un Evento</td>
+                    </tr> 
+                </tbody>
+            </table>
+        </div>
+
+        <div class="hidden content-table" id="modificaEventoTable">
+            <table class="restest" width="100%">
+                <thead>
+                    <tr>
+                        <th>Path</th>
+                        <th>Method</th>
+                        <th>Parameters</th>
+                        <th>Payload</th>
+                        <th>Authentication</th>
+                        <th>URL to Try</th>
+                        <th>(Expected) Result</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>PUT</td>
+                        <td></td>
+                        <td>
+
+                            <form method="post" action="rest/eventi/1" enctype="application/x-www-form-urlencoded" >
+                                <input type="text" name="giorno" placeholder="Giorno">
+                                <input type="text" name="oraInizio" placeholder="Ora di inizio">
+                                <input type="text" name="oraFine" placeholder="Ora di fine">
+                                <input type="text" name="descrizione" placeholder="Descrizione">
+                                <input type="text" name="nome" placeholder="Nome">
+                                <input type="text" name="tipologia" placeholder="Tipologia">
+                                <input type="text" name="idaula" placeholder="ID dell'Aula">
+                                <input type="text" name="idresponsabile" placeholder="ID del Responsabile">
+                                <input type="text" name="idcorso" placeholder="ID del Corso">
+
+                                <input style="margin: 10px" type="submit" name="update" value="Modifica Evento"/> 
+                            </form>
+
+                        </td>
+                        <td>Bearer token</td>
+                        <td></td>
+                        <td class="output">Modifica di un Evento</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="hidden content-table" id="informazioniEventoTable">
+            <table class="restest" width="100%">
+                <thead>
+                    <tr>
+                        <th>Path</th>
+                        <th>Method</th>
+                        <th>Parameters</th>
+                        <th>Payload</th>
+                        <th>Authentication</th>
+                        <th>URL to Try</th>
+                        <th>(Expected) Result</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td rowspan="6">/eventi</td>
+                        <td>GET</td>
+                        <td>idevento: [0-9]+</td>
+                        <td></td>
+                        <td></td>
+                        <td><a data-rest-test data-rest-test-target href="rest/eventi/1"><small>GET rest/eventi/1</small></a></td>
+                        <td  class="output">Informazioni di un evento</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="hidden content-table" id="eventiAulaSettimanaTable">
+            <table class="restest" width="100%">
+                <thead>
+                    <tr>
+                        <th>Path</th>
+                        <th>Method</th>
+                        <th>Parameters</th>
+                        <th>Payload</th>
+                        <th>Authentication</th>
+                        <th>URL to Try</th>
+                        <th>(Expected) Result</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>GET</td>
+                        <td>idaula: [0-9]+/giorno: [0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]</td>
+                        <td></td>
+                        <td></td>
+                        <td><a data-rest-test data-rest-test-target href="rest/eventi/1/2023-06-16"><small>GET rest/eventi/1/2023-06-16</small></a></td>
+                        <td class="output">Lista di Eventi di un Aula in una settimana</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="hidden content-table" id="eventiAttualiTable">
+            <table class="restest" width="100%">
+                <thead>
+                    <tr>
+                        <th>Path</th>
+                        <th>Method</th>
+                        <th>Parameters</th>
+                        <th>Payload</th>
+                        <th>Authentication</th>
+                        <th>URL to Try</th>
+                        <th>(Expected) Result</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>GET</td>
+                        <td>idgruppo: [0-9]+</td>
+                        <td></td>
+                        <td></td>
+                        <td><a data-rest-test data-rest-test-target href="rest/eventi/1/threehours"><small>GET rest/eventi/1/threehours</small></a></td>
+                        <td class="output">Lista di Eventi in un Gruppo nelle prossime 3 ore</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="hidden content-table" id="esportazioneEventiTable">
+            <table class="restest" width="100%">
+                <thead>
+                    <tr>
+                        <th>Path</th>
+                        <th>Method</th>
+                        <th>Parameters</th>
+                        <th>Payload</th>
+                        <th>Authentication</th>
+                        <th>URL to Try</th>
+                        <th>(Expected) Result</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>GET</td>
+                        <td>idaula: [0-9]+/giorno: [0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]</td>
+                        <td></td>
+                        <td></td>
+                        <td><a data-rest-test data-rest-test-target href="rest/eventi/1/2023-06-16/attachment"><small>GET rest/eventi/1/2023-06-16/attachment</small></a></td>
+                        <td class="output">File iCalendar con gli Eventi in un Aula nella settimana del giorno specificato</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <script src="res/restest.js">/* */</script>
+        <script>
+            let tester = new Restest();
+        </script>         
+
+    </body>
+</html>
