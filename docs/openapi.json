@@ -1,0 +1,725 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "AuleWebREST STDT-Sviluppo Web Avanzato a.a. 2022/2023",
+    "contact": {
+      "email": "mattia.peccerillo@student.univaq.it"
+    },
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080/AuleWebREST_STDT/"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Aule",
+      "description": "Operazioni sulle Aule"
+    },
+    {
+      "name": "Eventi",
+      "description": "Operazioni sugli Eventi"
+    },
+    {
+      "name": "Attrezzature",
+      "description": "Operazioni sulle Attrezzature"
+    },
+    {
+      "name": "Autenticazione",
+      "description": "Operazioni di Autenticazione per gli Amministratori"
+    }
+  ],
+  "externalDocs": {
+    "url": "https://github.com/Timat-P/swa-2022-2023.git",
+    "description": "Repository del progetto"
+  },
+  "paths": {
+    "/rest/aule": {
+      "post": {
+        "summary": "Inserisce una nuova Aula.",
+        "operationId": "addAula",
+        "tags": [
+          "Aule"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Aula"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "created",
+            "headers": {
+              "location": {
+                "schema": {
+                  "type": "string",
+                  "format": "uri"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "format": "uri"
+                }
+              }
+            }
+          },
+          "500": {
+            "$ref": "#/components/responses/GeneralError"
+          }
+        }
+      }
+    },
+    "/rest/aule/{idaula}": {
+      "get": {
+        "summary": "Richiede le informazioni di un'Aula.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/IDAula"
+          }
+        ],
+        "operationId": "getAula",
+        "tags": [
+          "Aule"
+        ],
+        "responses": {
+          "200": {
+            "description": "un aula",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Aula"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/GeneralError"
+          }
+        }
+      },
+      "put": {
+        "summary": "Modifica il Gruppo di un'Aula.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/IDAula"
+          }
+        ],
+        "operationId": "updateGruppoOfAula",
+        "tags": [
+          "Aule"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ID"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "no content"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/GeneralError"
+          }
+        }
+      }
+    },
+    "/rest/attrezzature/{idaula}": {
+      "get": {
+        "summary": "Richiede una lista delle Attrezzature di un'Aula.",
+        "operationId": "getAttrezzatureByAula",
+        "tags": [
+          "Attrezzature"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/IDAula"
+          }
+        ],
+        "responses": {
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/GeneralError"
+          },
+          "default": {
+            "description": "Lista di Attrezzature di un'Aula",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListaAttrezzatura"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rest/eventi": {
+      "post": {
+        "summary": "Inserisce un nuovo Evento.",
+        "operationId": "addEvento",
+        "tags": [
+          "Eventi"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Evento"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "created",
+            "headers": {
+              "location": {
+                "schema": {
+                  "type": "string",
+                  "format": "uri"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "format": "uri"
+                }
+              }
+            }
+          },
+          "500": {
+            "$ref": "#/components/responses/GeneralError"
+          }
+        }
+      }
+    },
+    "/rest/eventi/{idevento}": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/IDEvento"
+        }
+      ],
+      "put": {
+        "summary": "Modifica un'Evento.",
+        "operationId": "updateEvento",
+        "tags": [
+          "Eventi"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Evento"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "no content"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/GeneralError"
+          }
+        }
+      },
+      "get": {
+        "summary": "Restituisce le informazioni di un'Evento.",
+        "operationId": "getEvento",
+        "tags": [
+          "Eventi"
+        ],
+        "responses": {
+          "200": {
+            "description": "un evento",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Evento"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/GeneralError"
+          }
+        }
+      }
+    },
+    "/rest/eventi/{idaula}/{giorno}": {
+      "get": {
+        "summary": "Richiede una lista degli Eventi di un'Aula in una settimana.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/IDAula"
+          },
+          {
+            "$ref": "#/components/parameters/Giorno"
+          }
+        ],
+        "operationId": "getEventiByAulaAndSettimana",
+        "tags": [
+          "Eventi"
+        ],
+        "responses": {
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/GeneralError"
+          },
+          "default": {
+            "description": "Lista di Eventi in una determinata Aula e settimana",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListaEvento"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rest/eventi/{idgruppo}/threehours": {
+      "get": {
+        "summary": "Richiede una lista degli Eventi di un Gruppo nelle prossime 3 ore.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/IDGruppo"
+          }
+        ],
+        "operationId": "getEventiNextThreeHours",
+        "tags": [
+          "Eventi"
+        ],
+        "responses": {
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/GeneralError"
+          },
+          "default": {
+            "description": "Lista di Eventi di un determinato Gruppo nelle prossime 3 ore",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListaEvento"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rest/eventi/{idaula}/{giorno}/attachment": {
+      "get": {
+        "summary": "Esporta gli eventi relativi a un Aula nella settimana del Giorno specificato",
+        "operationId": "getAttachmentEventi",
+        "tags": [
+          "Eventi"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/Giorno"
+          },
+          {
+            "$ref": "#/components/parameters/IDAula"
+          }
+        ],
+        "responses": {
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/GeneralError"
+          },
+          "default": {
+            "description": "Lista di eventi in formato iCalendar",
+            "content": {
+              "application/ics": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rest/auth/login": {
+      "post": {
+        "summary": "Login.",
+        "operationId": "doLogin",
+        "tags": [
+          "Autenticazione"
+        ],
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "successful login",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "headers": {
+              "Authorization": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "Bearer [a-z0-9A-Z-]+"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "500": {
+            "$ref": "#/components/responses/GeneralError"
+          }
+        }
+      }
+    },
+    "/rest/auth/logout": {
+      "delete": {
+        "summary": "Logout.",
+        "operationId": "doLogout",
+        "tags": [
+          "Autenticazione"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful logout"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "500": {
+            "$ref": "#/components/responses/GeneralError"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "internalToken"
+      }
+    },
+    "responses": {
+      "GeneralError": {
+        "description": "errore generale",
+        "content": {
+          "text/plain": {
+            "schema": {
+              "type": "string",
+              "example": "Messaggio di Errore"
+            }
+          }
+        }
+      },
+      "UnauthorizedError": {
+        "description": "bearer token mancante o non valido"
+      },
+      "NotFound": {
+        "description": "elemento non trovato",
+        "content": {
+          "text/plain": {
+            "schema": {
+              "type": "string",
+              "example": "Elemento inesistente"
+            }
+          }
+        }
+      }
+    },
+    "parameters": {
+      "IDEvento": {
+        "name": "idevento",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "IDAula": {
+        "name": "idaula",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "IDGruppo": {
+        "name": "idgruppo",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "Giorno": {
+        "name": "giorno",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "format": "date"
+        }
+      },
+      "dateFrom": {
+        "name": "from",
+        "in": "query",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "format": "date"
+        }
+      },
+      "dateTo": {
+        "name": "to",
+        "in": "query",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "format": "date"
+        }
+      },
+      "annoFatture": {
+        "name": "anno",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "numeroFattura": {
+        "name": "numero",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "schemas": {
+      "Gruppo": {
+        "type": "object",
+        "properties": {
+          "nome": {
+            "type": "string"
+          },
+          "descrizione": {
+            "type": "string"
+          }
+        }
+      },
+      "Posizione": {
+        "type": "object",
+        "properties": {
+          "luogo": {
+            "type": "string"
+          },
+          "edificio": {
+            "type": "string"
+          },
+          "piano": {
+            "type": "string"
+          }
+        }
+      },
+      "Aula": {
+        "type": "object",
+        "properties": {
+          "nome": {
+            "type": "string"
+          },
+          "capienza": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "emailResponsabile": {
+            "type": "string"
+          },
+          "note": {
+            "type": "string"
+          },
+          "numeroPreseRete": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "numeroPreseElettriche": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "gruppo": {
+            "$ref": "#/components/schemas/Gruppo"
+          },
+          "posizione": {
+            "$ref": "#/components/schemas/Posizione"
+          }
+        }
+      },
+      "Attrezzatura": {
+        "type": "object",
+        "properties": {
+          "nome": {
+            "type": "string"
+          }
+        }
+      },
+      "ListaAttrezzatura": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "attrezzatura": {
+              "$ref": "#/components/schemas/Attrezzatura"
+            }
+          }
+        }
+      },
+      "Responsabile": {
+        "type": "object",
+        "properties": {
+          "nome": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          }
+        }
+      },
+      "Amministratore": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        }
+      },
+      "Corso": {
+        "type": "object",
+        "properties": {
+          "nome": {
+            "type": "string"
+          }
+        }
+      },
+      "Evento": {
+        "type": "object",
+        "properties": {
+          "giorno": {
+            "type": "string",
+            "format": "date"
+          },
+          "oraInizio": {
+            "type": "string",
+            "format": "time"
+          },
+          "oraFine": {
+            "type": "string",
+            "format": "time"
+          },
+          "nome": {
+            "type": "string"
+          },
+          "descrizione": {
+            "type": "string"
+          },
+          "tipologia": {
+            "type": "string"
+          },
+          "responsabile": {
+            "$ref": "#/components/schemas/Responsabile"
+          },
+          "aula": {
+            "$ref": "#/components/schemas/Aula"
+          },
+          "corso": {
+            "$ref": "#/components/schemas/Corso"
+          }
+        }
+      },
+      "ListaEvento": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "evento": {
+              "$ref": "#/components/schemas/Evento"
+            }
+          }
+        }
+      },
+      "ID": {
+        "type": "integer"
+      }
+    }
+  }
+}
