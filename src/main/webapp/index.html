@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>AuleWeb REST STDT application (JavaEE 8)</title>
+        <title>AuleWeb REST STDT application (JakartaEE 9)</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="res/restest.css"/>
@@ -34,12 +34,12 @@
             <div id="title">Universita' degli studi dell'Aquila</div>
             <div id="header">
                 <div class="topnav">
-                    <a href="listgruppi">Homepage</a>
+                    <a href="https://www.univaq.it/">Sito Ufficiale</a>
                 </div>
             </div> 
         </div>
         <div>
-            <h1>AuleWeb REST STDT application (JavaEE 9)</h1>
+            <h1>AuleWeb REST STDT application (JakartaEE 9)</h1>
             <p>L'applicazione permette di fare:</p>
             <ul>
 
@@ -47,6 +47,7 @@
                 <li><a href="#" onclick="showTable('insertAulaTable')">Inserimento di una nuova aula.</a></li>
                 <li><a href="#" onclick="showTable('informazioniAulaTable')">Lettura delle informazioni di base relative a un'aula.</a></li>
                 <li><a href="#" onclick="showTable('attrezzatureAulaTable')">Lista delle attrezzature presenti in un'aula.</a></li>
+                <li><a href="#" onclick="showTable('assegnazioneGruppotable')">Assegnazione di un aula a un gruppo.</a></li>
                 <li><a href="#" onclick="showTable('insertEventoTable')">Inserimento di un nuovo evento.</a></li>
                 <li><a href="#" onclick="showTable('modificaEventoTable')">Modifica di un evento.</a></li>
                 <li><a href="#" onclick="showTable('informazioniEventoTable')">Lettura delle informazioni su un evento.</a></li>
@@ -142,7 +143,19 @@
                                 <input type="text" name="numeropreserete" placeholder="Numero prese di rete">
                                 <input type="text" name="idgruppo" placeholder="ID del gruppo">
                                 <input type="text" name="idposizione" placeholder="ID della posizione">
-
+                                <label>Attrezzature:</label><br>
+                                <input type="checkbox" name="attrezzature[]" value="attrezzatura1"> Proiettore<br>
+                                <input type="checkbox" name="attrezzature[]" value="attrezzatura2"> Schermo motorizzato<br>
+                                <input type="checkbox" name="attrezzature[]" value="attrezzatura3"> Schermo manuale<br>
+                                <input type="checkbox" name="attrezzature[]" value="attrezzatura4"> Imp.audio<br>
+                                <input type="checkbox" name="attrezzature[]" value="attrezzatura5"> Pc fisso<br>
+                                <input type="checkbox" name="attrezzature[]" value="attrezzatura6"> Mic. a filo<br>
+                                <input type="checkbox" name="attrezzature[]" value="attrezzatura7"> Mic. senza filo<br>
+                                <input type="checkbox" name="attrezzature[]" value="attrezzatura8"> Lavagna luminosa<br>
+                                <input type="checkbox" name="attrezzature[]" value="attrezzatura9"> Visual Presenter<br>
+                                <input type="checkbox" name="attrezzature[]" value="attrezzatura10"> Imp.elettrico<br>
+                                <input type="checkbox" name="attrezzature[]" value="attrezzatura11"> Allestimento<br>
+                                <input type="checkbox" name="attrezzature[]" value="attrezzatura12"> Lavagna<br>
                                 <input id="login-button" style="margin: 10px" type="submit" name="update" value="Aggiungi Aula"/> 
                             </form>
 
@@ -208,6 +221,42 @@
                         <td><a data-rest-test data-rest-test-target href="rest/attrezzature/2"><small>GET rest/attrezzature/2</small></a></td>
                         <td  class="output">Una lista di attrezzature di un'aula</td>
                     </tr>   
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="hidden content-table" id="assegnazioneGruppotable">
+            <table id="autenticazione" width="100%">
+                <thead>
+                    <tr>
+                        <th>Path</th>
+                        <th>Method</th>
+                        <th>Parameters</th>
+                        <th>Payload</th>
+                        <th>Authentication</th>
+                        <th>URL to Try</th>
+                        <th>(Expected) Result</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>PUT</td>
+                        <td></td>
+                        <td>
+
+                            <form method="post" action="rest/aule/1" enctype="application/x-www-form-urlencoded" >
+                                <input type="text" name="idgruppo" placeholder="ID del Gruppo">
+
+                                <input id="login-button" style="margin: 10px" type="submit" name="update" value="Modifica Aula"/> 
+                            </form>
+
+                        </td>
+                        <td>Bearer token</td>
+                        <td></td>
+                        <td class="output"></td>
+                        <td>Modifica del gruppo di un aula</td>
+                    </tr>
                 </tbody>
             </table>
         </div>
@@ -293,8 +342,8 @@
                         </td>
                         <td>Bearer token</td>
                         <td></td>
-                        <td class="output">Modifica di un Evento</td>
-                        <td></td>
+                        <td class="output"></td>
+                        <td>Modifica di un Evento</td>
                     </tr>
                 </tbody>
             </table>
@@ -412,10 +461,10 @@
             </table>
         </div>
 
-        <script src="res/restest.js">/* */</script>
+        <!--<script src="res/restest.js">/* */</script>
         <script>
             let tester = new Restest();
         </script>         
-
+-->
     </body>
 </html>

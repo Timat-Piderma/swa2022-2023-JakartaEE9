@@ -21,6 +21,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.naming.InitialContext;
@@ -82,7 +83,9 @@ public class AuleRes {
             @FormParam("numeropreseelettriche") String numeropreseelettriche,
             @FormParam("numeropreserete") String numeropreserete,
             @FormParam("idgruppo") String idgruppo,
-            @FormParam("idposizione") String idposizione
+            @FormParam("idposizione") String idposizione,
+            @FormParam("attrezzature") List<String> attrezzature
+
     ) throws SQLException, NamingException {
 
         InitialContext ctx;
@@ -90,7 +93,7 @@ public class AuleRes {
         DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/progettoDB");
         Connection conn = ds.getConnection();
 
-        PreparedStatement ps = conn.prepareStatement("INSERT INTO aula (nome,capienza,emailResponsabile,note,numeroPreseElettriche,numeroPreseRete,gruppoID,posizioneID) VALUES(?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+        PreparedStatement ps = conn.prepareStatement("INSERT INTO aula (nome,capienza,emailResponsabile,note,numeroPreseElettriche,numeroPreseRete,gruppoID,posizioneID, attrezzature) VALUES(?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
         ps.setString(1, nome);
         ps.setString(2, capienza);
         ps.setString(3, emailresponsabile);
@@ -99,6 +102,7 @@ public class AuleRes {
         ps.setString(6, numeropreserete);
         ps.setString(7, idgruppo);
         ps.setString(8, idposizione);
+        ps.setString(9, String.join(",", attrezzature));
 
         if (ps.executeUpdate() == 1) {
 
