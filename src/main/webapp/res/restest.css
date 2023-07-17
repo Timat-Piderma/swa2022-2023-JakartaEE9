@@ -92,33 +92,6 @@
     display: block;
 }
 
-table.restest {
-    border: 2px solid black;
-    border-collapse: collapse;  
-    width: 100%;
-    padding:0;
-}
-
-table.restest td {
-    border: 1px solid gray;
-    padding:1px;
-}
-
-table.restest td.output {
-    font-size: 70%;
-}
-
-table.restest tbody tr:nth-child(odd) {
-    background-color: azure;
-}
-
-table.restest thead tr {
-    background-color: cadetblue;
-    color: white;
-    font-weight: bold;
-    border: 2px solid black;
-}
-
 #autenticazione {
   font-family: Arial, Helvetica, sans-serif;
   border-collapse: collapse;
@@ -130,22 +103,22 @@ table.restest thead tr {
   border: 1px solid #ddd;
   padding: 8px;
   width: 12%;
-
+  overflow: hidden;
+  
 }
 
-#autenticazione tr:nth-child(even){background-color: #f2f2f2;}
+#autenticazione tr:nth-child(odd){background-color: #f2f2f2;}
 
 #autenticazione tr:hover {background-color: #ddd;}
 
 #autenticazione th {
   padding-top: 12px;
   padding-bottom: 12px;
-  background-color: transparent;
-  color: black;
+  color: white;
   width: 12%;
- 
+  background-color: #1A2E65;
 } 
-#login-button, #logout-button, #refresh-button {
+#login-button {
             padding: 5px 10px;
             margin: 5px;
             background-color: #003399;
@@ -158,13 +131,13 @@ table.restest thead tr {
             cursor: pointer;
             border-radius: 10px;
         }
-#login-button:hover, #logout-button:hover, #refresh-button:hover {
+#login-button:hover {
   background-color: #fcba03;
   color: black;
 }
 
 body {font-family: Arial, Helvetica, sans-serif;}
-form {border: 3px solid #f1f1f1;}
+
 
 
 input[type=text], input[type=password] {
@@ -178,4 +151,14 @@ input[type=text], input[type=password] {
 
 .container_log {
   padding: 16px;
+}
+.hidden {
+    display: none;
+}
+a {
+    text-decoration: none;
+    color: magenta;
+}
+a:hover {
+    text-decoration: underline;
 }

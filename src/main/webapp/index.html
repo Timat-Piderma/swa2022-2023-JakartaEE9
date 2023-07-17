@@ -1,16 +1,12 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>AuleWeb REST STDT application (JakartaEE 9)</title>
+        <title>AuleWeb REST STDT application (JavaEE 8)</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="res/restest.css"/>
+        <link rel="stylesheet" type="text/css" href="res/restest.css"/>
 
-        <style>
-            .hidden {
-                display: none;
-            }
-        </style>
+        
 
         <script>
             function showTable(tableId) {
@@ -43,7 +39,7 @@
             </div> 
         </div>
         <div>
-            <h1>AuleWeb REST STDT application (JakartaEE 9)</h1>
+            <h1>AuleWeb REST STDT application (JavaEE 9)</h1>
             <p>L'applicazione permette di fare:</p>
             <ul>
 
@@ -101,15 +97,15 @@
                             <form method="post" action="rest/auth/login" enctype="application/x-www-form-urlencoded">
                                 <div class="container_log">
                                     <label for="u"><b>Username</b></label>
-                                    <input style="width:30%" type="text" value="usernam" id="username-field" name="username-field"/> 
+                                    <input style="width:30%" type="text" value="username" id="username-field" name="username-field"/> 
                                     <label for="p"><b>Password</b></label> 
                                     <input style="width:30%" type="password" value="password" id="password-field" name="password-field"/>
                                     <input type="submit" value="login" name="login-button" id="login-button"/>
-                                    <input type="submit" value="logout" name="logout-button" id="logout-button"/>   
+                                    <input type="submit" value="logout" name="logout-button" id="login-button"/>   
                                 </div>
                             </form>
                             <form method="post" action="rest/auth/login" enctype="application/x-www-form-urlencoded">
-                                <p>Token: <input style="width:80%" type="text" id="token-field" name="token-field"/> <input type="submit" value="refresh" name="refresh-button" id="refresh-button"/></p>
+                                <p>Token: <input style="width:80%" type="text" id="token-field" name="token-field"/> <input type="submit" value="refresh" name="login-button" id="login-button"/></p>
                             </form>
                         </td>
                     </tr>
@@ -118,7 +114,7 @@
         </div>
 
         <div class="hidden content-table" id="insertAulaTable">
-            <table class="restest" width="100%">
+            <table id="autenticazione" width="100%">
                 <thead>
                     <tr>
                         <th>Path</th>
@@ -147,20 +143,21 @@
                                 <input type="text" name="idgruppo" placeholder="ID del gruppo">
                                 <input type="text" name="idposizione" placeholder="ID della posizione">
 
-                                <input style="margin: 10px" type="submit" name="update" value="Aggiungi Aula"/> 
+                                <input id="login-button" style="margin: 10px" type="submit" name="update" value="Aggiungi Aula"/> 
                             </form>
 
                         </td>
                         <td>Bearer token</td>
                         <td></td>
                         <td class="output">Inserimento di un Aula</td>
+                        <td></td>
                     </tr> 
                 </tbody>
             </table>
         </div>
 
         <div class="hidden content-table" id="informazioniAulaTable">
-            <table class="restest" width="100%">
+            <table id="autenticazione" width="100%">
                 <thead>
                     <tr>
                         <th>Path</th>
@@ -188,7 +185,7 @@
         </div>
 
         <div class="hidden content-table" id="attrezzatureAulaTable">
-            <table class="restest" width="100%">
+            <table id="autenticazione" width="100%">
                 <thead>
                     <tr>
                         <th>Path</th>
@@ -216,7 +213,7 @@
         </div>
 
         <div class="hidden content-table" id="insertEventoTable">
-            <table class="restest" width="100%">
+            <table id="autenticazione" width="100%">
                 <thead>
                     <tr>
                         <th>Path</th>
@@ -246,20 +243,21 @@
                                 <input type="text" name="idresponsabile" placeholder="ID del Responsabile">
                                 <input type="text" name="idcorso" placeholder="ID del Corso">
 
-                                <input style="margin: 10px" type="submit" name="update" value="Aggiungi Evento"/> 
+                                <input id="login-button" style="margin: 10px" type="submit" name="update" value="Aggiungi Evento"/> 
                             </form>
 
                         </td>
                         <td>Bearer token</td>
                         <td></td>
                         <td class="output">Inserimento di un Evento</td>
+                        <td></td>
                     </tr> 
                 </tbody>
             </table>
         </div>
 
         <div class="hidden content-table" id="modificaEventoTable">
-            <table class="restest" width="100%">
+            <table id="autenticazione" width="100%">
                 <thead>
                     <tr>
                         <th>Path</th>
@@ -289,20 +287,21 @@
                                 <input type="text" name="idresponsabile" placeholder="ID del Responsabile">
                                 <input type="text" name="idcorso" placeholder="ID del Corso">
 
-                                <input style="margin: 10px" type="submit" name="update" value="Modifica Evento"/> 
+                                <input id="login-button" style="margin: 10px" type="submit" name="update" value="Modifica Evento"/> 
                             </form>
 
                         </td>
                         <td>Bearer token</td>
                         <td></td>
                         <td class="output">Modifica di un Evento</td>
+                        <td></td>
                     </tr>
                 </tbody>
             </table>
         </div>
 
         <div class="hidden content-table" id="informazioniEventoTable">
-            <table class="restest" width="100%">
+            <table id="autenticazione" width="100%">
                 <thead>
                     <tr>
                         <th>Path</th>
@@ -330,7 +329,7 @@
         </div>
 
         <div class="hidden content-table" id="eventiAulaSettimanaTable">
-            <table class="restest" width="100%">
+            <table id="autenticazione" width="100%">
                 <thead>
                     <tr>
                         <th>Path</th>
@@ -351,13 +350,14 @@
                         <td></td>
                         <td><a data-rest-test data-rest-test-target href="rest/eventi/1/2023-06-16"><small>GET rest/eventi/1/2023-06-16</small></a></td>
                         <td class="output">Lista di Eventi di un Aula in una settimana</td>
+                        <td></td>
                     </tr>
                 </tbody>
             </table>
         </div>
 
         <div class="hidden content-table" id="eventiAttualiTable">
-            <table class="restest" width="100%">
+            <table id="autenticazione" width="100%">
                 <thead>
                     <tr>
                         <th>Path</th>
@@ -378,13 +378,14 @@
                         <td></td>
                         <td><a data-rest-test data-rest-test-target href="rest/eventi/1/threehours"><small>GET rest/eventi/1/threehours</small></a></td>
                         <td class="output">Lista di Eventi in un Gruppo nelle prossime 3 ore</td>
+                        <td></td>
                     </tr>
                 </tbody>
             </table>
         </div>
 
         <div class="hidden content-table" id="esportazioneEventiTable">
-            <table class="restest" width="100%">
+            <table id="autenticazione" width="100%">
                 <thead>
                     <tr>
                         <th>Path</th>
@@ -405,6 +406,7 @@
                         <td></td>
                         <td><a data-rest-test data-rest-test-target href="rest/eventi/1/2023-06-16/attachment"><small>GET rest/eventi/1/2023-06-16/attachment</small></a></td>
                         <td class="output">File iCalendar con gli Eventi in un Aula nella settimana del giorno specificato</td>
+                        <td></td>
                     </tr>
                 </tbody>
             </table>
