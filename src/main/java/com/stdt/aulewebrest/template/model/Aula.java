@@ -14,6 +14,7 @@ public class Aula {
     private Gruppo gruppo;
     private Posizione posizione;
     private List<Evento> eventi;
+    private int ID;
 
     public Aula() {
         //dati di default
@@ -157,5 +158,19 @@ public class Aula {
      */
     public void setEventi(List<Evento> eventi) {
         this.eventi = eventi;
+    }
+
+    /**
+     * @return the ID
+     */
+    public int getID() {
+        return ID;
+    }
+
+    /**
+     * @param ID the ID to set
+     */
+    public void setID(int ID) {
+        this.ID = ID;
     }
 }

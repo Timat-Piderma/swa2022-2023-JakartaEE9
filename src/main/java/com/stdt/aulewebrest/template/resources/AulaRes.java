@@ -6,7 +6,6 @@ import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.FormParam;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
-import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.container.ContainerRequestContext;
 import jakarta.ws.rs.core.Context;
@@ -55,19 +54,21 @@ public class AulaRes {
         DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/progettoDB");
         Connection conn = ds.getConnection();
 
-        PreparedStatement ps = conn.prepareStatement("UPDATE aula SET  idgruppo=?, version=? WHERE ID=? and version=?");
+        PreparedStatement ps = conn.prepareStatement("UPDATE aula SET  gruppoId=?, version=? WHERE ID=? and version=?");
         ps.setString(1, idgruppo);
       
 
         PreparedStatement psversion = conn.prepareStatement("select version from aula where ID=?");
+        psversion.setInt(1, aula.getID());
         ResultSet rsversion = psversion.executeQuery();
         rsversion.next();
 
         long current_version = rsversion.getInt("version");
         long next_version = current_version + 1;
 
-        ps.setLong(8, next_version);
-        ps.setLong(9, current_version);
+        ps.setLong(2, next_version);
+        ps.setInt(3, aula.getID());
+        ps.setLong(4, current_version);
 
         if (ps.executeUpdate() == 1) {
             ps.close();

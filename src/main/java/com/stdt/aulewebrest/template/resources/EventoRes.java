@@ -5,7 +5,7 @@ import com.stdt.aulewebrest.template.model.Evento;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.FormParam;
 import jakarta.ws.rs.GET;
-import jakarta.ws.rs.PUT;
+import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.container.ContainerRequestContext;
 import jakarta.ws.rs.core.Context;
@@ -40,7 +40,7 @@ public class EventoRes {
 
     }
 
-    @PUT
+    @POST
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     public Response UpdateItem(
             @Context ContainerRequestContext req,

@@ -63,6 +63,7 @@ public class AuleRes {
             aula.setNumeroPreseRete(rs.getInt("numeroPreseRete"));
             aula.setNote(rs.getString("note"));
             aula.setNumeroPreseElettriche(rs.getInt("numeroPreseElettriche"));
+            aula.setID(idaula);
 
             ps.close();
         } catch (NamingException ex) {
