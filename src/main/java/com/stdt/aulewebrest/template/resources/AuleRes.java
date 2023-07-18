@@ -1,6 +1,5 @@
 package com.stdt.aulewebrest.template.resources;
 
-import com.stdt.aulewebrest.framework.security.Logged;
 import com.stdt.aulewebrest.template.exceptions.RESTWebApplicationException;
 import com.stdt.aulewebrest.template.model.Aula;
 import jakarta.ws.rs.Consumes;
@@ -28,11 +27,9 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-
 @Path("aule")
 public class AuleRes {
 
-    
     @Path("{idaula: [0-9]+}")
     @Produces(MediaType.APPLICATION_JSON)
     public AulaRes getItem(
@@ -85,8 +82,18 @@ public class AuleRes {
             @FormParam("numeropreserete") String numeropreserete,
             @FormParam("idgruppo") String idgruppo,
             @FormParam("idposizione") String idposizione,
-            @FormParam("attrezzature") List<String> attrezzature
-
+            @FormParam("proiettore") String proiettore,
+            @FormParam("schermomotorizzato") String schermomotorizzato,
+            @FormParam("schermomanuale") String schermomanuale,
+            @FormParam("impaudio") String impaudio,
+            @FormParam("pcfisso") String pcfisso,
+            @FormParam("micfilo") String micfilo,
+            @FormParam("micsenzafilo") String micsenzafilo,
+            @FormParam("lavagnaluminosa") String lavagnaluminosa,
+            @FormParam("visualpresenter") String visualpresenter,
+            @FormParam("impelettrico") String impelettrico,
+            @FormParam("allestimento") String allestimento,
+            @FormParam("lavagna") String lavagna
     ) throws SQLException, NamingException {
 
         InitialContext ctx;
@@ -94,7 +101,7 @@ public class AuleRes {
         DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/progettoDB");
         Connection conn = ds.getConnection();
 
-        PreparedStatement ps = conn.prepareStatement("INSERT INTO aula (nome,capienza,emailResponsabile,note,numeroPreseElettriche,numeroPreseRete,gruppoID,posizioneID, attrezzature) VALUES(?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+        PreparedStatement ps = conn.prepareStatement("INSERT INTO aula (nome,capienza,emailResponsabile,note,numeroPreseElettriche,numeroPreseRete,gruppoID,posizioneID) VALUES(?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
         ps.setString(1, nome);
         ps.setString(2, capienza);
         ps.setString(3, emailresponsabile);
@@ -103,18 +110,44 @@ public class AuleRes {
         ps.setString(6, numeropreserete);
         ps.setString(7, idgruppo);
         ps.setString(8, idposizione);
-        ps.setString(9, String.join(",", attrezzature));
 
         if (ps.executeUpdate() == 1) {
 
             ResultSet keys = ps.getGeneratedKeys();
             keys.next();
+            
+            int aulaID=keys.getInt(1);
 
             URI uri = uriinfo.getBaseUriBuilder()
                     .path(getClass())
                     .path(getClass(), "getItem")
                     .build(keys.getInt(1));
             ps.close();
+
+            String[] s = new String[12];
+            s[0] = proiettore;
+            s[1] = schermomotorizzato;
+            s[2] = schermomanuale;
+            s[3] = impaudio;
+            s[4] = pcfisso;
+            s[5] = micfilo;
+            s[6] = micsenzafilo;
+            s[7] = lavagnaluminosa;
+            s[8] = visualpresenter;
+            s[9] = impelettrico;
+            s[10] = allestimento;
+            s[11] = lavagna;
+
+            try (PreparedStatement psattrezzature = conn.prepareStatement("INSERT INTO fornito (aulaID, attrezzaturaID) VALUES(?,?)", Statement.RETURN_GENERATED_KEYS)) {
+                for (String string : s) {
+                    if (string != null) {
+                        
+                        psattrezzature.setInt(1, aulaID);
+                        psattrezzature.setString(2, string);
+                        psattrezzature.executeUpdate();
+                    }
+                }
+            }
             return Response.created(uri).build();
         } else {
             ps.close();
