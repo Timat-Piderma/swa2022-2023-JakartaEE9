@@ -141,6 +141,34 @@
         }
       }
     },
+    "/rest/aule/attachment": {
+      "get": {
+        "summary": "Esportazione configurazione Aule in formato CSV.",
+        "operationId": "exportAuleCSV",
+        "tags": [
+          "Aule"
+        ],
+        "responses": {
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/GeneralError"
+          },
+          "default": {
+            "description": "Configurazione aule in formato CSV",
+            "content": {
+              "application/csv": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/rest/attrezzature/{idaula}": {
       "get": {
         "summary": "Richiede una lista delle Attrezzature di un'Aula.",
