@@ -44,6 +44,7 @@
             <ul>
 
                 <li><a href="#" onclick="showTable('loginTable')">Login/logout con username e password (per gli amministratori).</a></li>
+                <li><a href="#" onclick="showTable('CSVTable')">Esportazione e importazione CSV configurazione aule.</a></li>
                 <li><a href="#" onclick="showTable('insertAulaTable')">Inserimento di una nuova aula.</a></li>
                 <li><a href="#" onclick="showTable('informazioniAulaTable')">Lettura delle informazioni di base relative a un'aula.</a></li>
                 <li><a href="#" onclick="showTable('attrezzatureAulaTable')">Lista delle attrezzature presenti in un'aula.</a></li>
@@ -114,6 +115,88 @@
             </table>
         </div>
 
+                <div class="hidden content-table" id="insertAulaTable">
+            <table id="autenticazione" width="100%">
+                <thead>
+                    <tr>
+                        <th>Path</th>
+                        <th>Method</th>
+                        <th>Parameters</th>
+                        <th>Payload</th>
+                        <th>Authentication</th>
+                        <th>URL to Try</th>
+                        <th>(Expected) Result</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>POST</td>
+                        <td></td>
+                        <td>
+
+                            <form  method="post" action="rest/aule" enctype="application/x-www-form-urlencoded" >
+                                <input type="text" name="nome" placeholder="Nome">
+                                <input type="text" name="capienza" placeholder="Capienza">
+                                <input type="text" name="emailresponsabile" placeholder="Email Responsabile">
+                                <input type="text" name="note" placeholder="Note">
+                                <input type="text" name="numeropreseelettriche" placeholder="Numero prese elettriche">
+                                <input type="text" name="numeropreserete" placeholder="Numero prese di rete">
+                                <input type="text" name="idgruppo" placeholder="ID del gruppo">
+                                <input type="text" name="idposizione" placeholder="ID della posizione">
+                                <label>Attrezzature:</label><br>
+                                <input type="checkbox" name="proiettore" value="1"> Proiettore<br>
+                                <input type="checkbox" name="schermomotorizzato" value="2"> Schermo motorizzato<br>
+                                <input type="checkbox" name="schermomanuale" value="3"> Schermo manuale<br>
+                                <input type="checkbox" name="impaudio" value="4"> Imp.audio<br>
+                                <input type="checkbox" name="pcfisso" value="5"> Pc fisso<br>
+                                <input type="checkbox" name="micfilo" value="6"> Mic. a filo<br>
+                                <input type="checkbox" name="micsenzafilo" value="7"> Mic. senza filo<br>
+                                <input type="checkbox" name="lavagnaluminosa" value="8"> Lavagna luminosa<br>
+                                <input type="checkbox" name="visualpresenter" value="9"> Visual Presenter<br>
+                                <input type="checkbox" name="impelettrico" value="10"> Imp.elettrico<br>
+                                <input type="checkbox" name="allestimento" value="11"> Allestimento<br>
+                                <input type="checkbox" name="lavagna" value="12"> Lavagna<br>
+                                <input id="login-button" style="margin: 10px" type="submit" name="update" value="Aggiungi Aula"/> 
+                            </form>
+
+                        </td>
+                        <td>Bearer token</td>
+                        <td></td>
+                        <td class="output">Inserimento di un Aula</td>
+                        <td></td>
+                    </tr> 
+                </tbody>
+            </table>
+        </div>        <div class="hidden content-table" id="CSVTable">
+            <table id="autenticazione" width="100%">
+                <thead>
+                    <tr>
+                        <th>Path</th>
+                        <th>Method</th>
+                        <th>Parameters</th>
+                        <th>Payload</th>
+                        <th>Authentication</th>
+                        <th>URL to Try</th>
+                        <th>(Expected) Result</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>aule/attachment</td>
+                        <td>GET</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td><a data-rest-test data-rest-test-target href="rest/aule/attachment"><small>GET rest/aule/attachment</small></a></td>
+                        <td class="output">Esportazione configurazione aule in formato CSV</td>
+                    </tr> 
+                </tbody>
+            </table>
+        </div>
+        
+        
         <div class="hidden content-table" id="insertAulaTable">
             <table id="autenticazione" width="100%">
                 <thead>

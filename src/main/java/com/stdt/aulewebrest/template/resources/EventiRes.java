@@ -236,7 +236,6 @@ public class EventiRes {
 
     }
 
-    //esempio di download binario in streaming
     @Path("{idaula: [0-9]+}/{giorno: [0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]}/attachment")
     @GET
     @Produces("application/ics")

@@ -4,23 +4,27 @@ import com.stdt.aulewebrest.template.exceptions.RESTWebApplicationException;
 import com.stdt.aulewebrest.template.model.Aula;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.FormParam;
+import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.WebApplicationException;
 import jakarta.ws.rs.container.ContainerRequestContext;
 import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.SecurityContext;
+import jakarta.ws.rs.core.StreamingOutput;
 import jakarta.ws.rs.core.UriInfo;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.net.URI;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.naming.InitialContext;
@@ -115,8 +119,8 @@ public class AuleRes {
 
             ResultSet keys = ps.getGeneratedKeys();
             keys.next();
-            
-            int aulaID=keys.getInt(1);
+
+            int aulaID = keys.getInt(1);
 
             URI uri = uriinfo.getBaseUriBuilder()
                     .path(getClass())
@@ -138,10 +142,10 @@ public class AuleRes {
             s[10] = allestimento;
             s[11] = lavagna;
 
-            try (PreparedStatement psattrezzature = conn.prepareStatement("INSERT INTO fornito (aulaID, attrezzaturaID) VALUES(?,?)", Statement.RETURN_GENERATED_KEYS)) {
+            try ( PreparedStatement psattrezzature = conn.prepareStatement("INSERT INTO fornito (aulaID, attrezzaturaID) VALUES(?,?)", Statement.RETURN_GENERATED_KEYS)) {
                 for (String string : s) {
                     if (string != null) {
-                        
+
                         psattrezzature.setInt(1, aulaID);
                         psattrezzature.setString(2, string);
                         psattrezzature.executeUpdate();
@@ -154,5 +158,56 @@ public class AuleRes {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
 
+    }
+
+    @Path("attachment")
+    @GET
+    @Produces("application/csv")
+    public Response getAttachment() {
+
+        String data = "Nome, Capienza, Email Responsabile, Note, Numero Prese di Rete, Numero Prese Elettriche, ID Gruppo, ID Posizione,\n";
+
+        InitialContext ctx;
+        try {
+            ctx = new InitialContext();
+            DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/progettoDB");
+            Connection conn = ds.getConnection();
+
+            PreparedStatement ps = conn.prepareStatement("SELECT * FROM aula");
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+
+                data = data + rs.getString("nome") + ","
+                        + rs.getString("capienza") + ","
+                        + rs.getString("emailResponsabile") + ","
+                        + rs.getString("note") + ","
+                        + rs.getString("numeroPreseRete") + ","
+                        + rs.getString("numeroPreseElettriche") + ","
+                        + rs.getString("gruppoID") + ","
+                        + rs.getString("posizioneID") + "\n";
+
+            }
+            ps.close();
+
+            final byte[] attachment = data.getBytes();
+
+            StreamingOutput out = new StreamingOutput() {
+                @Override
+                public void write(OutputStream output) throws IOException, WebApplicationException {
+                    output.write(attachment);
+                }
+            };
+
+            return Response
+                    .ok(out)
+                    .header("content-disposition", "attachment; filename=configurazioneaule.csv")
+                    .build();
+
+        } catch (NamingException | SQLException ex) {
+            Logger.getLogger(AuleRes.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return Response.status(Response.Status.NOT_ACCEPTABLE).build();
     }
 }
