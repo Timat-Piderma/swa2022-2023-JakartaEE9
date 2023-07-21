@@ -45,15 +45,15 @@ public class EventoRes {
     public Response UpdateItem(
             @Context ContainerRequestContext req,
             @Context UriInfo uriinfo,
-            @FormParam("giorno") String giorno,
-            @FormParam("oraInizio") String oraInizio,
-            @FormParam("oraFine") String oraFine,
-            @FormParam("descrizione") String descrizione,
-            @FormParam("nome") String nome,
-            @FormParam("tipologia") String tipologia,
-            @FormParam("idaula") String idaula,
-            @FormParam("idresponsabile") String idresponsabile,
-            @FormParam("idcorso") String idcorso
+            @FormParam("giornoEvento") String giorno,
+            @FormParam("oraInizioEvento") String oraInizio,
+            @FormParam("oraFineEvento") String oraFine,
+            @FormParam("descrizioneEvento") String descrizione,
+            @FormParam("nomeEvento") String nome,
+            @FormParam("tipologiaEvento") String tipologia,
+            @FormParam("idaulaEvento") int idaula,
+            @FormParam("idresponsabileEvento") int idresponsabile,
+            @FormParam("idcorsoEvento") int idcorso
     ) throws SQLException, NamingException {
 
         InitialContext ctx;
@@ -68,9 +68,9 @@ public class EventoRes {
         ps.setString(4, descrizione);
         ps.setString(5, nome);
         ps.setString(6, tipologia);
-        ps.setString(7, idaula);
-        ps.setString(8, idresponsabile);
-        ps.setString(9, idcorso);
+        ps.setInt(7, idaula);
+        ps.setInt(8, idresponsabile);
+        ps.setInt(9, idcorso);
 
         PreparedStatement psversion = conn.prepareStatement("select version from evento where ID=?");
         psversion.setInt(1, evento.getID());

@@ -392,18 +392,61 @@
                         <td></td>
                         <td>
 
-                            <form method="post" action="rest/eventi/1" enctype="application/x-www-form-urlencoded" >
-                                <input type="text" name="giorno" placeholder="Giorno">
-                                <input type="text" name="oraInizio" placeholder="Ora di inizio">
-                                <input type="text" name="oraFine" placeholder="Ora di fine">
-                                <input type="text" name="descrizione" placeholder="Descrizione">
-                                <input type="text" name="nome" placeholder="Nome">
-                                <input type="text" name="tipologia" placeholder="Tipologia">
-                                <input type="text" name="idaula" placeholder="ID dell'Aula">
-                                <input type="text" name="idresponsabile" placeholder="ID del Responsabile">
-                                <input type="text" name="idcorso" placeholder="ID del Corso">
+                            <form id="updateEvento">
+                                <input type="text" id="giornoEvento" name="giornoEvento" placeholder="Giorno">
+                                <input type="text" id="oraInizioEvento"  name="oraInizioEvento" placeholder="Ora di inizio">
+                                <input type="text" id="oraFineEvento" name="oraFineEvento" placeholder="Ora di fine">
+                                <input type="text" id="descrizioneEvento" name="descrizioneEvento" placeholder="Descrizione">
+                                <input type="text" id="nomeEvento" name="nomeEvento" placeholder="Nome">
+                                <input type="text" id="tipologiaEvento" name="tipologiaEvento" placeholder="Tipologia">
+                                <input type="number" id="idaulaEvento" name="idaulaEvento" placeholder="ID dell'Aula">
+                                <input type="number" id="idresponsabileEvento" name="idresponsabileEvento" placeholder="ID del Responsabile">
+                                <input type="number" id="idcorsoEvento" name="idcorsoEvento" placeholder="ID del Corso">
+                                
+                                <script>
+                            function updateEvento() {
+                                var giorno = document.getElementById("giornoEvento").value;
+                                var oraInizio = document.getElementById("oraInizioEvento").value;
+                                var oraFine = document.getElementById("oraFineEvento").value;
+                                var descrizione = document.getElementById("descrizioneEvento").value;
+                                var nome = document.getElementById("nomeEvento").value;
+                                var tipologia = document.getElementById("tipologiaEvento").value;
+                                var idaula = document.getElementById("idaulaEvento").value;
+                                var idresponsabile = document.getElementById("idresponsabileEvento").value;
+                                var idcorso = document.getElementById("idcorsoEvento").value;
 
-                                <input id="login-button" style="margin: 10px" type="submit" name="update" value="Modifica Evento"/> 
+                                var eventoDate = {
+                                    giornoEvento: giorno,
+                                    oraInizioEvento: oraInizio,
+                                    oraFineEvento: oraFine,
+                                    descrizioneEvento: descrizione,
+                                    nomeEvento: nome,
+                                    tipologiaEvento: tipologia,
+                                    idaulaEvento: idaula,
+                                    idresponsabileEvento: idresponsabile,
+                                    idcorsoEvento: idcorso
+                                };
+
+                                var url = "rest/eventi/" + aula; //da modificare con id evento
+
+                               
+                                $.ajax({
+                                    url: url,
+                                    method: 'PUT',
+                                    data: eventoDate,
+                                    contentType: 'application/x-www-form-urlencoded',
+                                    success: function (data) {
+                                        alert('evento aggiornato con successo!');
+                                    },
+                                    error: function (xhr, status, error) {
+                                        // Gestisci eventuali errori qui
+                                        alert('Errore durante l\'aggiornamento dell\'evento: ' + error);
+                                    }
+                                });
+                            }
+                        </script>
+
+                                <button type="button" onclick="updateEvento()">Aggiorna evento</button>
                             </form>
 
                         </td>
@@ -535,30 +578,5 @@
         -->
     </body>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js">
-    </script>
-
-    <script>
-        function aggiornaAula() {
-            // Recupera i valori inseriti dall'utente dalla form
-            var idGruppo = document.getElementById("idGruppo").value;
-            var aulaData = $('#updateForm').serialize();
-
-            // Effettua la richiesta PUT con AJAX
-            $.ajax({
-                url: '/rest/aule/' + idGruppo,
-                method: 'PUT',
-                data: aulaData,
-                contentType: 'application/x-www-form-urlencoded',
-                success: function (data) {
-                    alert('Aula aggiornata con successo!');
-                },
-                error: function (xhr, status, error) {
-                    // Gestisci eventuali errori qui
-                    alert('Errore durante l\'aggiornamento dell\'aula: ' + error);
-                }
-            });
-        }
-    </script>
 
 </html>
