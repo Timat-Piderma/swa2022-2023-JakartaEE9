@@ -6,6 +6,7 @@ import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.FormParam;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
+import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.container.ContainerRequestContext;
 import jakarta.ws.rs.core.Context;
@@ -39,14 +40,14 @@ public class AulaRes {
         }
 
     }
-    
-    
-    @POST
+
+    @PUT
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     public Response UpdateItem(
             @Context ContainerRequestContext req,
             @Context UriInfo uriinfo,
-            @FormParam("idgruppo") String idgruppo    
+            @FormParam("idGruppo") int idgruppo,
+            @FormParam("idAula") int idaula
     ) throws SQLException, NamingException {
 
         InitialContext ctx;
@@ -55,8 +56,7 @@ public class AulaRes {
         Connection conn = ds.getConnection();
 
         PreparedStatement ps = conn.prepareStatement("UPDATE aula SET  gruppoId=?, version=? WHERE ID=? and version=?");
-        ps.setString(1, idgruppo);
-      
+        ps.setInt(1, idgruppo);
 
         PreparedStatement psversion = conn.prepareStatement("select version from aula where ID=?");
         psversion.setInt(1, aula.getID());

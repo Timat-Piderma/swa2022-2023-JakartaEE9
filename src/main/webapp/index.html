@@ -85,13 +85,6 @@
                         <td></td>
                         <td>Bearer token</td>
                     </tr>
-                    <tr>
-                        <td ><span data-rest-test-auth  data-rest-test-url="rest/auth/refresh" data-rest-test-method="get" data-rest-test-status="200">/auth/refresh</span></td>
-                        <td>GET</td>
-                        <td></td>
-                        <td></td>
-                        <td>Bearer token</td>
-                    </tr>
                 </tbody>
                 <tfoot>
                     <tr>
@@ -103,100 +96,16 @@
                                     <label for="p"><b>Password</b></label> 
                                     <input style="width:30%" type="password" value="password" id="password-field" name="password-field"/>
                                     <input type="submit" value="login" name="login-button" id="login-button"/>
-                                    <input type="submit" value="logout" name="logout-button" id="login-button"/>   
+                                    <input type="submit" value="logout" name="logout-button" id="logout-button"/>   
                                 </div>
                             </form>
-                            <form method="post" action="rest/auth/login" enctype="application/x-www-form-urlencoded">
-                                <p>Token: <input style="width:80%" type="text" id="token-field" name="token-field"/> <input type="submit" value="refresh" name="login-button" id="login-button"/></p>
-                            </form>
+                            <p>Token: <input style="width:80%" type="text" id="token-field" name="token-field"/> </p>
                         </td>
                     </tr>
                 </tfoot>
             </table>
         </div>
 
-                <div class="hidden content-table" id="insertAulaTable">
-            <table id="autenticazione" width="100%">
-                <thead>
-                    <tr>
-                        <th>Path</th>
-                        <th>Method</th>
-                        <th>Parameters</th>
-                        <th>Payload</th>
-                        <th>Authentication</th>
-                        <th>URL to Try</th>
-                        <th>(Expected) Result</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    <tr>
-                        <td>POST</td>
-                        <td></td>
-                        <td>
-
-                            <form  method="post" action="rest/aule" enctype="application/x-www-form-urlencoded" >
-                                <input type="text" name="nome" placeholder="Nome">
-                                <input type="text" name="capienza" placeholder="Capienza">
-                                <input type="text" name="emailresponsabile" placeholder="Email Responsabile">
-                                <input type="text" name="note" placeholder="Note">
-                                <input type="text" name="numeropreseelettriche" placeholder="Numero prese elettriche">
-                                <input type="text" name="numeropreserete" placeholder="Numero prese di rete">
-                                <input type="text" name="idgruppo" placeholder="ID del gruppo">
-                                <input type="text" name="idposizione" placeholder="ID della posizione">
-                                <label>Attrezzature:</label><br>
-                                <input type="checkbox" name="proiettore" value="1"> Proiettore<br>
-                                <input type="checkbox" name="schermomotorizzato" value="2"> Schermo motorizzato<br>
-                                <input type="checkbox" name="schermomanuale" value="3"> Schermo manuale<br>
-                                <input type="checkbox" name="impaudio" value="4"> Imp.audio<br>
-                                <input type="checkbox" name="pcfisso" value="5"> Pc fisso<br>
-                                <input type="checkbox" name="micfilo" value="6"> Mic. a filo<br>
-                                <input type="checkbox" name="micsenzafilo" value="7"> Mic. senza filo<br>
-                                <input type="checkbox" name="lavagnaluminosa" value="8"> Lavagna luminosa<br>
-                                <input type="checkbox" name="visualpresenter" value="9"> Visual Presenter<br>
-                                <input type="checkbox" name="impelettrico" value="10"> Imp.elettrico<br>
-                                <input type="checkbox" name="allestimento" value="11"> Allestimento<br>
-                                <input type="checkbox" name="lavagna" value="12"> Lavagna<br>
-                                <input id="login-button" style="margin: 10px" type="submit" name="update" value="Aggiungi Aula"/> 
-                            </form>
-
-                        </td>
-                        <td>Bearer token</td>
-                        <td></td>
-                        <td class="output">Inserimento di un Aula</td>
-                        <td></td>
-                    </tr> 
-                </tbody>
-            </table>
-        </div>        <div class="hidden content-table" id="CSVTable">
-            <table id="autenticazione" width="100%">
-                <thead>
-                    <tr>
-                        <th>Path</th>
-                        <th>Method</th>
-                        <th>Parameters</th>
-                        <th>Payload</th>
-                        <th>Authentication</th>
-                        <th>URL to Try</th>
-                        <th>(Expected) Result</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    <tr>
-                        <td>aule/attachment</td>
-                        <td>GET</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td><a data-rest-test data-rest-test-target href="rest/aule/attachment"><small>GET rest/aule/attachment</small></a></td>
-                        <td class="output">Esportazione configurazione aule in formato CSV</td>
-                    </tr> 
-                </tbody>
-            </table>
-        </div>
-        
-        
         <div class="hidden content-table" id="insertAulaTable">
             <table id="autenticazione" width="100%">
                 <thead>
@@ -247,6 +156,49 @@
                         <td></td>
                         <td class="output">Inserimento di un Aula</td>
                         <td></td>
+                    </tr> 
+                </tbody>
+            </table>
+
+
+        </div>        
+        <div class="hidden content-table" id="CSVTable">
+            <table id="autenticazione" width="100%">
+                <thead>
+                    <tr>
+                        <th>Path</th>
+                        <th>Method</th>
+                        <th>Parameters</th>
+                        <th>Payload</th>
+                        <th>Authentication</th>
+                        <th>URL to Try</th>
+                        <th>(Expected) Result</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>aule/attachment</td>
+                        <td>GET</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td><a data-rest-test data-rest-test-target href="rest/aule/attachment"><small>GET rest/aule/attachment</small></a></td>
+                        <td class="output">Esportazione configurazione aule in formato CSV</td>
+                    </tr> 
+                    <tr>
+                        <td>aule/import</td>
+                        <td>POST</td>
+                        <td></td>
+                        <td>
+                            <form action="rest/aule/import" method="post" enctype="multipart/form-data">
+                                <input type="file" name="csv" id="csv">
+                                <input type="submit" value="Carica">
+                            </form>
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td class="output">Importazione configurazione aule in formato CSV</td>
                     </tr> 
                 </tbody>
             </table>
@@ -327,11 +279,14 @@
                         <td>PUT</td>
                         <td></td>
                         <td>
-
-                            <form method="post" action="rest/aule/1" enctype="application/x-www-form-urlencoded" >
-                                <input type="text" name="idgruppo" placeholder="ID del Gruppo">
-
-                                <input id="login-button" style="margin: 10px" type="submit" name="update" value="Modifica Aula"/> 
+                            <form id="updateForm">
+                                <label>ID Gruppo:</label>
+                                <input type="number" id="idGruppo" name="idGruppo" required>
+                                <br>
+                                <label>ID Aula:</label>
+                                <input type="number" id="idAula" name="idAula" required>
+                                <br>
+                                <button type="button" onclick="aggiornaAula()">Aggiorna Aula</button>
                             </form>
 
                         </td>
@@ -550,4 +505,31 @@
         </script>         
         -->
     </body>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js">
+    </script>
+
+    <script>
+        function aggiornaAula() {
+            // Recupera i valori inseriti dall'utente dalla form
+            var idGruppo = document.getElementById("idGruppo").value;
+            var aulaData = $('#updateForm').serialize();
+
+            // Effettua la richiesta PUT con AJAX
+            $.ajax({
+                url: '/rest/aule/' + idGruppo,
+                method: 'PUT',
+                data: aulaData,
+                contentType: 'application/x-www-form-urlencoded',
+                success: function (data) {
+                    alert('Aula aggiornata con successo!');
+                },
+                error: function (xhr, status, error) {
+                    // Gestisci eventuali errori qui
+                    alert('Errore durante l\'aggiornamento dell\'aula: ' + error);
+                }
+            });
+        }
+    </script>
+
 </html>

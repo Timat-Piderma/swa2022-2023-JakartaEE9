@@ -1,5 +1,9 @@
 package com.stdt.aulewebrest.template.resources;
 
+import com.opencsv.CSVReaderHeaderAware;
+import com.opencsv.CSVWriter;
+import com.opencsv.CSVWriterBuilder;
+import com.opencsv.exceptions.CsvValidationException;
 import com.stdt.aulewebrest.template.exceptions.RESTWebApplicationException;
 import com.stdt.aulewebrest.template.model.Aula;
 import jakarta.ws.rs.Consumes;
@@ -17,6 +21,10 @@ import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.SecurityContext;
 import jakarta.ws.rs.core.StreamingOutput;
 import jakarta.ws.rs.core.UriInfo;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URI;
@@ -25,6 +33,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.naming.InitialContext;
@@ -165,28 +174,31 @@ public class AuleRes {
     @Produces("application/csv")
     public Response getAttachment() {
 
-        String data = "Nome, Capienza, Email Responsabile, Note, Numero Prese di Rete, Numero Prese Elettriche, ID Gruppo, ID Posizione,\n";
-
         InitialContext ctx;
         try {
+
+            CSVWriter writer = (CSVWriter) new CSVWriterBuilder(new FileWriter("yourfile.csv"))
+                    .withSeparator(',')
+                    .build();
+
+            // feed in your array (or convert your data to an array)
             ctx = new InitialContext();
             DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/progettoDB");
             Connection conn = ds.getConnection();
 
-            PreparedStatement ps = conn.prepareStatement("SELECT * FROM aula");
+            PreparedStatement ps = conn.prepareStatement("SELECT aula.nome as aulagruppo, gruppo.nome as nomegruppo, posizione.luogo, posizione.edificio, posizione.piano from aula join gruppo on aula.gruppoID = gruppo.ID join posizione on posizione.ID = aula.posizioneID");
 
             ResultSet rs = ps.executeQuery();
 
+            String data = "Aula, Gruppo, Luogo, Edificio, Piano\n";
+
             while (rs.next()) {
 
-                data = data + rs.getString("nome") + ","
-                        + rs.getString("capienza") + ","
-                        + rs.getString("emailResponsabile") + ","
-                        + rs.getString("note") + ","
-                        + rs.getString("numeroPreseRete") + ","
-                        + rs.getString("numeroPreseElettriche") + ","
-                        + rs.getString("gruppoID") + ","
-                        + rs.getString("posizioneID") + "\n";
+                data = data + rs.getString("aulagruppo") + ","
+                        + rs.getString("nomegruppo") + ","
+                        + rs.getString("luogo") + ","
+                        + rs.getString("edificio") + ","
+                        + rs.getString("piano") + "\n";
 
             }
             ps.close();
@@ -205,9 +217,34 @@ public class AuleRes {
                     .header("content-disposition", "attachment; filename=configurazioneaule.csv")
                     .build();
 
-        } catch (NamingException | SQLException ex) {
+        } catch (NamingException | SQLException | IOException ex) {
             Logger.getLogger(AuleRes.class.getName()).log(Level.SEVERE, null, ex);
         }
         return Response.status(Response.Status.NOT_ACCEPTABLE).build();
+    }
+
+    @Path("import")
+    @POST
+    public Response postConfiguration(
+            @FormParam("csv") File csv
+    ) {
+
+        try {
+            Map<String, String> values = new CSVReaderHeaderAware(new FileReader(csv)).readMap();
+
+            for (Map.Entry<String, String> entry : values.entrySet()) {
+                System.out.println("Key = " + entry.getKey()
+                        + ", Value = " + entry.getValue());
+            }
+
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(AuleRes.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException | CsvValidationException ex) {
+            Logger.getLogger(AuleRes.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return Response.noContent()
+                .build();
+
     }
 }

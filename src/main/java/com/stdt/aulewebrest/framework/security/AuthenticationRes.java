@@ -3,7 +3,6 @@ package com.stdt.aulewebrest.framework.security;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.FormParam;
-import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.container.ContainerRequestContext;
@@ -55,19 +54,5 @@ public class AuthenticationRes {
                 //eliminaimo anche il cookie con il token
                 .cookie(new NewCookie(new Cookie("token", ""), "", 0, false))
                 .build();
-    }
-
-    //Metodo per fare "refresh" del token senza ritrasmettere le credenziali
-    @GET
-    @Path("refresh")
-    @Logged
-    public Response refresh(@Context ContainerRequestContext req, @Context UriInfo uriinfo) {
-        //proprietà iniettata nella request dal filtro di autenticazione
-        String username = (String) req.getProperty("user");
-        String newtoken = AuthHelpers.getInstance().issueToken(uriinfo, username);
-        return Response.ok(newtoken)
-                .cookie(new NewCookie("token", newtoken))
-                .header(HttpHeaders.AUTHORIZATION, "Bearer " + newtoken).build();
-
     }
 }
