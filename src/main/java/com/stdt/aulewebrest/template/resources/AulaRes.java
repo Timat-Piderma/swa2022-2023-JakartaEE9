@@ -50,7 +50,6 @@ public class AulaRes {
             @FormParam("idAulaGruppo") int idaula
     ) throws SQLException, NamingException {
         
-        System.out.println ("idgruppo");
         InitialContext ctx;
         ctx = new InitialContext();
         DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/progettoDB");

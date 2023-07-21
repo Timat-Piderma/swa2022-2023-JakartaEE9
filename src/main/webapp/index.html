@@ -402,6 +402,7 @@
                                 <input type="number" id="idaulaEvento" name="idaulaEvento" placeholder="ID dell'Aula">
                                 <input type="number" id="idresponsabileEvento" name="idresponsabileEvento" placeholder="ID del Responsabile">
                                 <input type="number" id="idcorsoEvento" name="idcorsoEvento" placeholder="ID del Corso">
+                                <input type="number" id="ideventoEvento" name="ideventoEvento" placeholder="ID dell'Evento">
                                 
                                 <script>
                             function updateEvento() {
@@ -414,6 +415,7 @@
                                 var idaula = document.getElementById("idaulaEvento").value;
                                 var idresponsabile = document.getElementById("idresponsabileEvento").value;
                                 var idcorso = document.getElementById("idcorsoEvento").value;
+                                var idevento = document.getElementById("ideventoEvento").value;
 
                                 var eventoDate = {
                                     giornoEvento: giorno,
@@ -424,10 +426,11 @@
                                     tipologiaEvento: tipologia,
                                     idaulaEvento: idaula,
                                     idresponsabileEvento: idresponsabile,
-                                    idcorsoEvento: idcorso
+                                    idcorsoEvento: idcorso,
+                                    ideventoEvento: idevento
                                 };
 
-                                var url = "rest/eventi/" + aula; //da modificare con id evento
+                                var url = "rest/eventi/" + idevento
 
                                
                                 $.ajax({
