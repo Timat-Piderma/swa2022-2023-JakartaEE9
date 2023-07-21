@@ -5,7 +5,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="res/restest.css"/>
-
+        <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 
 
         <script>
@@ -274,20 +274,49 @@
                     </tr>
                 </thead>
 
-                <tbody>
-                    <tr>
-                        <td>PUT</td>
-                        <td></td>
-                        <td>
-                            <form id="updateForm">
-                                <label>ID Gruppo:</label>
-                                <input type="number" id="idGruppo" name="idGruppo" required>
-                                <br>
-                                <label>ID Aula:</label>
-                                <input type="number" id="idAula" name="idAula" required>
-                                <br>
-                                <button type="button" onclick="aggiornaAula()">Aggiorna Aula</button>
-                            </form>
+            <tbody>
+            <tr>
+            <td>PUT</td>
+            <td></td>
+            <td>
+            <form id="updateForm">
+            <label>ID Gruppo:</label>
+            <input type="number" id="idGruppoAula" name="idGruppoAula" required>
+            <br>
+            <label>ID Aula:</label>
+            <input type="number" id="idAulaGruppo" name="idAulaGruppo" required>
+            <br>
+
+        <script>
+            function updateAula() {
+                var gruppo = document.getElementById("idGruppoAula").value;
+                var aula = document.getElementById("idAulaGruppo").value;
+
+                var aulaData = {
+                    idGruppoAula: gruppo,
+                    idAulaGruppo: aula
+                };
+
+                var url = "rest/aule/" + aula; 
+
+                $.ajax({
+                    url: url,
+                    method: 'PUT',
+                    data: aulaData,
+                    contentType: 'application/x-www-form-urlencoded',
+                    success: function (data) {
+                        alert('Aula aggiornata con successo!');
+                    },
+                    error: function (xhr, status, error) {
+                        // Gestisci eventuali errori qui
+                        alert('Errore durante l\'aggiornamento dell\'aula: ' + error);
+                    }
+                });
+            }
+        </script>
+       
+        <button type="button" onclick="updateAula()">Aggiorna Aula</button>
+         </form>
 
                         </td>
                         <td>Bearer token</td>

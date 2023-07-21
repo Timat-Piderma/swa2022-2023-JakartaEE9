@@ -46,10 +46,11 @@ public class AulaRes {
     public Response UpdateItem(
             @Context ContainerRequestContext req,
             @Context UriInfo uriinfo,
-            @FormParam("idGruppo") int idgruppo,
-            @FormParam("idAula") int idaula
+            @FormParam("idGruppoAula") int idgruppo,
+            @FormParam("idAulaGruppo") int idaula
     ) throws SQLException, NamingException {
-
+        
+        System.out.println ("idgruppo");
         InitialContext ctx;
         ctx = new InitialContext();
         DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/progettoDB");
