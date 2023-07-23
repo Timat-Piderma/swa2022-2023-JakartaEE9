@@ -227,7 +227,6 @@ public class AuleRes {
 
     @Path("import")
     @POST
-    @Logged
     public Response postConfiguration(
             @FormParam("csv") File csv
     ) {

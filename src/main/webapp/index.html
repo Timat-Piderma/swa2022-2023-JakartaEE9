@@ -122,8 +122,8 @@
 
                 <tbody>
                     <tr>
+                        <td>aule</td>
                         <td>POST</td>
-                        <td></td>
                         <td>
 
                             <form  method="post" action="rest/aule" enctype="application/x-www-form-urlencoded" >
@@ -155,7 +155,7 @@
                         <td>Bearer token</td>
                         <td></td>
                         <td class="output">Inserimento di un Aula</td>
-                        <td></td>
+                        <td>Inserimento di un aula</td>
                     </tr> 
                 </tbody>
             </table>
@@ -220,7 +220,7 @@
 
                 <tbody>
                     <tr>
-                        <td rowspan="2">/aule</td>
+                        <td rowspan="2">aule</td>
                         <td>GET</td>
                         <td>idaula: [0-9]+</td>
                         <td></td>
@@ -248,7 +248,7 @@
 
                 <tbody>
                     <tr>
-                        <td rowspan="1">/attrezzature</td>
+                        <td rowspan="1">attrezzature</td>
                         <td>GET</td>
                         <td>idaula: [0-9]+</td>
                         <td></td>
@@ -276,8 +276,8 @@
 
                 <tbody>
                     <tr>
+                        <td>aule</td>
                         <td>PUT</td>
-                        <td></td>
                         <td>
                             <form id="updateForm">
                                 <label>ID Gruppo:</label>
@@ -344,8 +344,8 @@
 
                 <tbody>
                     <tr>
+                        <td>eventi</td>
                         <td>POST</td>
-                        <td></td>
                         <td>
 
                             <form  method="post" action="rest/eventi" enctype="application/x-www-form-urlencoded" >
@@ -388,8 +388,8 @@
 
                 <tbody>
                     <tr>
+                        <td>eventi</td>
                         <td>PUT</td>
-                        <td></td>
                         <td>
 
                             <form id="updateEvento">
@@ -478,7 +478,7 @@
 
                 <tbody>
                     <tr>
-                        <td rowspan="6">/eventi</td>
+                        <td rowspan="6">eventi</td>
                         <td>GET</td>
                         <td>idevento: [0-9]+</td>
                         <td></td>
@@ -506,13 +506,13 @@
 
                 <tbody>
                     <tr>
+                        <td>eventi</td>
                         <td>GET</td>
                         <td>idaula: [0-9]+/giorno: [0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]</td>
                         <td></td>
                         <td></td>
                         <td><a data-rest-test data-rest-test-target href="rest/eventi/1/2023-06-16"><small>GET rest/eventi/1/2023-06-16</small></a></td>
                         <td class="output">Lista di Eventi di un Aula in una settimana</td>
-                        <td></td>
                     </tr>
                 </tbody>
             </table>
@@ -534,13 +534,13 @@
 
                 <tbody>
                     <tr>
+                        <td>eventi</td>
                         <td>GET</td>
                         <td>idgruppo: [0-9]+</td>
                         <td></td>
                         <td></td>
                         <td><a data-rest-test data-rest-test-target href="rest/eventi/1/threehours"><small>GET rest/eventi/1/threehours</small></a></td>
                         <td class="output">Lista di Eventi in un Gruppo nelle prossime 3 ore</td>
-                        <td></td>
                     </tr>
                 </tbody>
             </table>
@@ -562,13 +562,13 @@
 
                 <tbody>
                     <tr>
+                        <td>eventi</td>
                         <td>GET</td>
                         <td>idaula: [0-9]+/giorno: [0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]</td>
                         <td></td>
                         <td></td>
                         <td><a data-rest-test data-rest-test-target href="rest/eventi/1/2023-06-16/attachment"><small>GET rest/eventi/1/2023-06-16/attachment</small></a></td>
                         <td class="output">File iCalendar con gli Eventi in un Aula nella settimana del giorno specificato</td>
-                        <td></td>
                     </tr>
                 </tbody>
             </table>
