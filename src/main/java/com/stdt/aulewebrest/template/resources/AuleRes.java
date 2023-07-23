@@ -4,6 +4,7 @@ import com.opencsv.CSVReaderHeaderAware;
 import com.opencsv.CSVWriter;
 import com.opencsv.CSVWriterBuilder;
 import com.opencsv.exceptions.CsvValidationException;
+import com.stdt.aulewebrest.framework.security.Logged;
 import com.stdt.aulewebrest.template.exceptions.RESTWebApplicationException;
 import com.stdt.aulewebrest.template.model.Aula;
 import jakarta.ws.rs.Consumes;
@@ -84,6 +85,7 @@ public class AuleRes {
 
     @POST
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Logged
     public Response addItem(
             @Context ContainerRequestContext req,
             @Context UriInfo uriinfo,
@@ -225,6 +227,7 @@ public class AuleRes {
 
     @Path("import")
     @POST
+    @Logged
     public Response postConfiguration(
             @FormParam("csv") File csv
     ) {

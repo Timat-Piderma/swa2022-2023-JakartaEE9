@@ -9,7 +9,6 @@ import jakarta.ws.rs.core.Application;
 import com.stdt.aulewebrest.framework.jackson.ObjectMapperContextResolver;
 import com.stdt.aulewebrest.template.exceptions.AppExceptionMapper;
 import com.stdt.aulewebrest.framework.security.CORSFilter;
-import com.stdt.aulewebrest.template.resources.SimpleRes;
 import com.stdt.aulewebrest.framework.security.AuthenticationRes;
 import com.stdt.aulewebrest.framework.security.AuthLoggedFilter;
 import com.stdt.aulewebrest.template.exceptions.JacksonExceptionMapper;
@@ -38,7 +37,6 @@ public class RESTApp extends Application {
         c.add(AulaRes.class);
         c.add(EventiRes.class);
         c.add(EventoRes.class);
-        c.add(SimpleRes.class);
 
         //aggiungiamo il provider Jackson per poter
         //usare i suoi servizi di serializzazione e 

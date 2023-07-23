@@ -148,7 +148,7 @@
                                 <input type="checkbox" name="impelettrico" value="10"> Imp.elettrico<br>
                                 <input type="checkbox" name="allestimento" value="11"> Allestimento<br>
                                 <input type="checkbox" name="lavagna" value="12"> Lavagna<br>
-                                <input id="login-button" style="margin: 10px" type="submit" name="update" value="Aggiungi Aula"/> 
+                                <input style="margin: 10px" type="submit" name="update" value="Aggiungi Aula"/> 
                             </form>
 
                         </td>
@@ -274,49 +274,49 @@
                     </tr>
                 </thead>
 
-            <tbody>
-            <tr>
-            <td>PUT</td>
-            <td></td>
-            <td>
-            <form id="updateForm">
-            <label>ID Gruppo:</label>
-            <input type="number" id="idGruppoAula" name="idGruppoAula" required>
-            <br>
-            <label>ID Aula:</label>
-            <input type="number" id="idAulaGruppo" name="idAulaGruppo" required>
-            <br>
+                <tbody>
+                    <tr>
+                        <td>PUT</td>
+                        <td></td>
+                        <td>
+                            <form id="updateForm">
+                                <label>ID Gruppo:</label>
+                                <input type="number" id="idGruppoAula" name="idGruppoAula" required>
+                                <br>
+                                <label>ID Aula:</label>
+                                <input type="number" id="idAulaGruppo" name="idAulaGruppo" required>
+                                <br>
 
-        <script>
-            function updateAula() {
-                var gruppo = document.getElementById("idGruppoAula").value;
-                var aula = document.getElementById("idAulaGruppo").value;
+                                <script>
+                                    function updateAula() {
+                                        var gruppo = document.getElementById("idGruppoAula").value;
+                                        var aula = document.getElementById("idAulaGruppo").value;
 
-                var aulaData = {
-                    idGruppoAula: gruppo,
-                    idAulaGruppo: aula
-                };
+                                        var aulaData = {
+                                            idGruppoAula: gruppo,
+                                            idAulaGruppo: aula
+                                        };
 
-                var url = "rest/aule/" + aula; 
+                                        var url = "rest/aule/" + aula;
 
-                $.ajax({
-                    url: url,
-                    method: 'PUT',
-                    data: aulaData,
-                    contentType: 'application/x-www-form-urlencoded',
-                    success: function (data) {
-                        alert('Aula aggiornata con successo!');
-                    },
-                    error: function (xhr, status, error) {
-                        // Gestisci eventuali errori qui
-                        alert('Errore durante l\'aggiornamento dell\'aula: ' + error);
-                    }
-                });
-            }
-        </script>
-       
-        <button type="button" onclick="updateAula()">Aggiorna Aula</button>
-         </form>
+                                        $.ajax({
+                                            url: url,
+                                            method: 'PUT',
+                                            data: aulaData,
+                                            contentType: 'application/x-www-form-urlencoded',
+                                            success: function (data) {
+                                                alert('Aula aggiornata con successo!');
+                                            },
+                                            error: function (xhr, status, error) {
+                                                // Gestisci eventuali errori qui
+                                                alert('Errore durante l\'aggiornamento dell\'aula: ' + error);
+                                            }
+                                        });
+                                    }
+                                </script>
+
+                                <button type="button" onclick="updateAula()">Aggiorna Aula</button>
+                            </form>
 
                         </td>
                         <td>Bearer token</td>
@@ -359,7 +359,7 @@
                                 <input type="text" name="idresponsabile" placeholder="ID del Responsabile">
                                 <input type="text" name="idcorso" placeholder="ID del Corso">
 
-                                <input id="login-button" style="margin: 10px" type="submit" name="update" value="Aggiungi Evento"/> 
+                                <input style="margin: 10px" type="submit" name="update" value="Aggiungi Evento"/> 
                             </form>
 
                         </td>
@@ -403,51 +403,51 @@
                                 <input type="number" id="idresponsabileEvento" name="idresponsabileEvento" placeholder="ID del Responsabile">
                                 <input type="number" id="idcorsoEvento" name="idcorsoEvento" placeholder="ID del Corso">
                                 <input type="number" id="ideventoEvento" name="ideventoEvento" placeholder="ID dell'Evento">
-                                
+
                                 <script>
-                            function updateEvento() {
-                                var giorno = document.getElementById("giornoEvento").value;
-                                var oraInizio = document.getElementById("oraInizioEvento").value;
-                                var oraFine = document.getElementById("oraFineEvento").value;
-                                var descrizione = document.getElementById("descrizioneEvento").value;
-                                var nome = document.getElementById("nomeEvento").value;
-                                var tipologia = document.getElementById("tipologiaEvento").value;
-                                var idaula = document.getElementById("idaulaEvento").value;
-                                var idresponsabile = document.getElementById("idresponsabileEvento").value;
-                                var idcorso = document.getElementById("idcorsoEvento").value;
-                                var idevento = document.getElementById("ideventoEvento").value;
+                                    function updateEvento() {
+                                        var giorno = document.getElementById("giornoEvento").value;
+                                        var oraInizio = document.getElementById("oraInizioEvento").value;
+                                        var oraFine = document.getElementById("oraFineEvento").value;
+                                        var descrizione = document.getElementById("descrizioneEvento").value;
+                                        var nome = document.getElementById("nomeEvento").value;
+                                        var tipologia = document.getElementById("tipologiaEvento").value;
+                                        var idaula = document.getElementById("idaulaEvento").value;
+                                        var idresponsabile = document.getElementById("idresponsabileEvento").value;
+                                        var idcorso = document.getElementById("idcorsoEvento").value;
+                                        var idevento = document.getElementById("ideventoEvento").value;
 
-                                var eventoDate = {
-                                    giornoEvento: giorno,
-                                    oraInizioEvento: oraInizio,
-                                    oraFineEvento: oraFine,
-                                    descrizioneEvento: descrizione,
-                                    nomeEvento: nome,
-                                    tipologiaEvento: tipologia,
-                                    idaulaEvento: idaula,
-                                    idresponsabileEvento: idresponsabile,
-                                    idcorsoEvento: idcorso,
-                                    ideventoEvento: idevento
-                                };
+                                        var eventoDate = {
+                                            giornoEvento: giorno,
+                                            oraInizioEvento: oraInizio,
+                                            oraFineEvento: oraFine,
+                                            descrizioneEvento: descrizione,
+                                            nomeEvento: nome,
+                                            tipologiaEvento: tipologia,
+                                            idaulaEvento: idaula,
+                                            idresponsabileEvento: idresponsabile,
+                                            idcorsoEvento: idcorso,
+                                            ideventoEvento: idevento
+                                        };
 
-                                var url = "rest/eventi/" + idevento
+                                        var url = "rest/eventi/" + idevento
 
-                               
-                                $.ajax({
-                                    url: url,
-                                    method: 'PUT',
-                                    data: eventoDate,
-                                    contentType: 'application/x-www-form-urlencoded',
-                                    success: function (data) {
-                                        alert('evento aggiornato con successo!');
-                                    },
-                                    error: function (xhr, status, error) {
-                                        // Gestisci eventuali errori qui
-                                        alert('Errore durante l\'aggiornamento dell\'evento: ' + error);
+
+                                        $.ajax({
+                                            url: url,
+                                            method: 'PUT',
+                                            data: eventoDate,
+                                            contentType: 'application/x-www-form-urlencoded',
+                                            success: function (data) {
+                                                alert('evento aggiornato con successo!');
+                                            },
+                                            error: function (xhr, status, error) {
+                                                // Gestisci eventuali errori qui
+                                                alert('Errore durante l\'aggiornamento dell\'evento: ' + error);
+                                            }
+                                        });
                                     }
-                                });
-                            }
-                        </script>
+                                </script>
 
                                 <button type="button" onclick="updateEvento()">Aggiorna evento</button>
                             </form>
@@ -574,11 +574,11 @@
             </table>
         </div>
 
-        <!--<script src="res/restest.js">/* */</script>
+        <script src="res/restest.js">/* */</script>
         <script>
             let tester = new Restest();
         </script>         
-        -->
+
     </body>
 
 

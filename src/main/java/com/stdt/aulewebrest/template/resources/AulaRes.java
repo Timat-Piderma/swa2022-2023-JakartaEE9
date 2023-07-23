@@ -1,11 +1,11 @@
 package com.stdt.aulewebrest.template.resources;
 
+import com.stdt.aulewebrest.framework.security.Logged;
 import com.stdt.aulewebrest.template.exceptions.RESTWebApplicationException;
 import com.stdt.aulewebrest.template.model.Aula;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.FormParam;
 import jakarta.ws.rs.GET;
-import jakarta.ws.rs.POST;
 import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.container.ContainerRequestContext;
@@ -43,13 +43,14 @@ public class AulaRes {
 
     @PUT
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Logged
     public Response UpdateItem(
             @Context ContainerRequestContext req,
             @Context UriInfo uriinfo,
             @FormParam("idGruppoAula") int idgruppo,
             @FormParam("idAulaGruppo") int idaula
     ) throws SQLException, NamingException {
-        
+
         InitialContext ctx;
         ctx = new InitialContext();
         DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/progettoDB");

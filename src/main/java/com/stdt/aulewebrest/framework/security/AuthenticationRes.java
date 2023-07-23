@@ -27,8 +27,6 @@ public class AuthenticationRes {
             @FormParam("username") String username,
             @FormParam("password") String password) {
         try {
-             System.out.println(username);
-              System.out.println(password);
             if (AuthHelpers.getInstance().authenticateUser(username, password)) {
                 String authToken = AuthHelpers.getInstance().issueToken(uriinfo, username);
                 //Restituiamolo in tutte le modalità, giusto per fare un esempio...

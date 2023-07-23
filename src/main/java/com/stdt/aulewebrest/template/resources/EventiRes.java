@@ -1,5 +1,6 @@
 package com.stdt.aulewebrest.template.resources;
 
+import com.stdt.aulewebrest.framework.security.Logged;
 import com.stdt.aulewebrest.framework.security.iCal4j_Util;
 import com.stdt.aulewebrest.template.exceptions.RESTWebApplicationException;
 import com.stdt.aulewebrest.template.model.Evento;
@@ -178,6 +179,7 @@ public class EventiRes {
 
     @POST
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Logged
     public Response addItem(
             @Context ContainerRequestContext req,
             @Context UriInfo uriinfo,
