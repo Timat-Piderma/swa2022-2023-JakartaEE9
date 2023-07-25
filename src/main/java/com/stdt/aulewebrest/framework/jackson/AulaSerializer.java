@@ -19,8 +19,8 @@ public class AulaSerializer extends JsonSerializer<Aula> {
         jgen.writeNumberField("numeroPreseElettriche", item.getNumeroPreseElettriche());
         jgen.writeNumberField("numeroPreseRete", item.getNumeroPreseRete());
         jgen.writeStringField("note", item.getNote());
-        jgen.writeObjectField("gruppo", item.getIdGruppo());
-        jgen.writeObjectField("posizione", item.getIdPosizione());
+        jgen.writeObjectField("gruppoID", item.getIdGruppo());
+        jgen.writeObjectField("posizioneID", item.getIdPosizione());
         jgen.writeObjectField("eventi", item.getEventi());
         jgen.writeEndObject(); // }
     }

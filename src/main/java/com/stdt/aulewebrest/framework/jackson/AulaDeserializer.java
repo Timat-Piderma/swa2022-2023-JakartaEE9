@@ -40,10 +40,10 @@ public class AulaDeserializer extends JsonDeserializer<Aula> {
             a.setNote(node.get("note").asText());
         }
         
-        if (node.has("gruppo")){
+        if (node.has("gruppoID")){
             a.setIdGruppo(node.get("gruppoID").asInt());
         }
-        if (node.has("posizione")){
+        if (node.has("posizioneID")){
             a.setIdPosizione(node.get("posizioneID").asInt());
         }
         if (node.has("eventi")) {
