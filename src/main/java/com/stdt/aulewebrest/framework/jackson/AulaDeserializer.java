@@ -11,8 +11,6 @@ import java.util.List;
 import com.stdt.aulewebrest.template.model.Attrezzatura;
 import com.stdt.aulewebrest.template.model.Aula;
 import com.stdt.aulewebrest.template.model.Evento;
-import com.stdt.aulewebrest.template.model.Gruppo;
-import com.stdt.aulewebrest.template.model.Posizione;
 
 public class AulaDeserializer extends JsonDeserializer<Aula> {
     
@@ -42,20 +40,11 @@ public class AulaDeserializer extends JsonDeserializer<Aula> {
             a.setNote(node.get("note").asText());
         }
         
-        if (node.has("attrezzature")) {
-            JsonNode ne = node.get("attrezzature");
-            List<Attrezzatura> attrezzature = new ArrayList<>();
-            a.setAttrezzature(attrezzature);
-            for (int i = 0; i < ne.size(); ++i) {
-                attrezzature.add(jp.getCodec().treeToValue(ne.get(i), Attrezzatura.class));
-            }           
-        }
-        
         if (node.has("gruppo")){
-            a.setGruppo(jp.getCodec().treeToValue(node.get("gruppo"), Gruppo.class));
+            a.setIdGruppo(node.get("gruppoID").asInt());
         }
         if (node.has("posizione")){
-            a.setPosizione(jp.getCodec().treeToValue(node.get("posizione"), Posizione.class));
+            a.setIdPosizione(node.get("posizioneID").asInt());
         }
         if (node.has("eventi")) {
             JsonNode ne = node.get("eventi");

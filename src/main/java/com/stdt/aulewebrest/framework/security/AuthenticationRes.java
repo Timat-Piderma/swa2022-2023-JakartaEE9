@@ -15,7 +15,6 @@ import jakarta.ws.rs.core.Response;
 import static jakarta.ws.rs.core.Response.Status.UNAUTHORIZED;
 import jakarta.ws.rs.core.UriInfo;
 
-
 @Path("auth")
 public class AuthenticationRes {
 
@@ -23,16 +22,15 @@ public class AuthenticationRes {
     @Path("login")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     public Response login(@Context UriInfo uriinfo,
-            //un altro modo per ricevere e iniettare i parametri con JAX-RS...
             @FormParam("username") String username,
             @FormParam("password") String password) {
         try {
             if (AuthHelpers.getInstance().authenticateUser(username, password)) {
                 String authToken = AuthHelpers.getInstance().issueToken(uriinfo, username);
-                //Restituiamolo in tutte le modalità, giusto per fare un esempio...
+
                 return Response.ok(authToken)
                         .cookie(new NewCookie("token", authToken))
-                        .header(HttpHeaders.AUTHORIZATION, "Bearer " + authToken).build();
+                        .build();
             }
         } catch (Exception e) {
             //logging dell'errore 

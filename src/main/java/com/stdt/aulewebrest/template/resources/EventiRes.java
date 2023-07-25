@@ -179,7 +179,7 @@ public class EventiRes {
 
     @POST
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    @Logged
+    //@Logged
     public Response addItem(
             @Context ContainerRequestContext req,
             @Context UriInfo uriinfo,

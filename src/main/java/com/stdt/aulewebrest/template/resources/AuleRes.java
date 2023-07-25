@@ -1,15 +1,9 @@
 package com.stdt.aulewebrest.template.resources;
 
-import com.opencsv.CSVReader;
-import com.opencsv.CSVReaderHeaderAware;
 import com.opencsv.CSVWriter;
 import com.opencsv.CSVWriterBuilder;
-import com.opencsv.exceptions.CsvValidationException;
-import com.stdt.aulewebrest.framework.security.Logged;
 import com.stdt.aulewebrest.template.exceptions.RESTWebApplicationException;
 import com.stdt.aulewebrest.template.model.Aula;
-import jakarta.servlet.annotation.MultipartConfig;
-import jakarta.servlet.http.Part;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.FormParam;
 import jakarta.ws.rs.GET;
@@ -26,11 +20,8 @@ import jakarta.ws.rs.core.SecurityContext;
 import jakarta.ws.rs.core.StreamingOutput;
 import jakarta.ws.rs.core.UriInfo;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URI;
 import java.sql.Connection;
@@ -38,7 +29,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.naming.InitialContext;
@@ -79,6 +69,8 @@ public class AuleRes {
             aula.setNote(rs.getString("note"));
             aula.setNumeroPreseElettriche(rs.getInt("numeroPreseElettriche"));
             aula.setID(idaula);
+            aula.setIdGruppo(rs.getInt("gruppoID"));
+            aula.setIdPosizione(rs.getInt("posizioneID"));
 
             ps.close();
         } catch (NamingException ex) {
@@ -89,7 +81,7 @@ public class AuleRes {
 
     @POST
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    @Logged
+    //@Logged
     public Response addItem(
             @Context ContainerRequestContext req,
             @Context UriInfo uriinfo,
@@ -231,6 +223,7 @@ public class AuleRes {
 
     @Path("import")
     @POST
+    //@Logged
     public Response importEvents(@FormParam("fileCSV") File csv) {
 
         /*

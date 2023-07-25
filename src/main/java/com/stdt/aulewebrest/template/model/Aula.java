@@ -11,8 +11,8 @@ public class Aula {
     private int numeroPreseRete;
     private String note;
     private List<Attrezzatura> attrezzature;
-    private Gruppo gruppo;
-    private Posizione posizione;
+    private int idgruppo;
+    private int idposizione;
     private List<Evento> eventi;
     private int ID;
 
@@ -121,29 +121,29 @@ public class Aula {
     /**
      * @return the gruppo
      */
-    public Gruppo getGruppo() {
-        return gruppo;
+    public int getIdGruppo() {
+        return idgruppo;
     }
 
     /**
-     * @param gruppo the gruppo to set
+     * @param idgruppo the gruppo to set
      */
-    public void setGruppo(Gruppo gruppo) {
-        this.gruppo = gruppo;
+    public void setIdGruppo(int idgruppo) {
+        this.idgruppo = idgruppo;
     }
 
     /**
      * @return the posizione
      */
-    public Posizione getPosizione() {
-        return posizione;
+    public int getIdPosizione() {
+        return idposizione;
     }
 
     /**
      * @param posizione the posizione to set
      */
-    public void setPosizione(Posizione posizione) {
-        this.posizione = posizione;
+    public void setIdPosizione(int idposizione) {
+        this.idposizione = idposizione;
     }
 
     /**

@@ -43,7 +43,7 @@ public class AulaRes {
 
     @PUT
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    @Logged
+    //@Logged
     public Response UpdateItem(
             @Context ContainerRequestContext req,
             @Context UriInfo uriinfo,
