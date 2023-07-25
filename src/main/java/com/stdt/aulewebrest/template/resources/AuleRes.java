@@ -1,5 +1,6 @@
 package com.stdt.aulewebrest.template.resources;
 
+import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderHeaderAware;
 import com.opencsv.CSVWriter;
 import com.opencsv.CSVWriterBuilder;
@@ -7,6 +8,8 @@ import com.opencsv.exceptions.CsvValidationException;
 import com.stdt.aulewebrest.framework.security.Logged;
 import com.stdt.aulewebrest.template.exceptions.RESTWebApplicationException;
 import com.stdt.aulewebrest.template.model.Aula;
+import jakarta.servlet.annotation.MultipartConfig;
+import jakarta.servlet.http.Part;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.FormParam;
 import jakarta.ws.rs.GET;
@@ -27,6 +30,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URI;
 import java.sql.Connection;
@@ -227,26 +231,26 @@ public class AuleRes {
 
     @Path("import")
     @POST
-    public Response postConfiguration(
-            @FormParam("csv") File csv
-    ) {
+    public Response importEvents(@FormParam("fileCSV") File csv) {
 
+        /*
         try {
-            Map<String, String> values = new CSVReaderHeaderAware(new FileReader(csv)).readMap();
 
-            for (Map.Entry<String, String> entry : values.entrySet()) {
-                System.out.println("Key = " + entry.getKey()
-                        + ", Value = " + entry.getValue());
+            FileReader filereader = new FileReader(csv);
+
+            CSVReader csvReader = new CSVReader(filereader);
+            String[] nextRecord;
+
+            while ((nextRecord = csvReader.readNext()) != null) {
+                for (String cell : nextRecord) {
+                    System.out.print(cell + "\t");
+                }
+                System.out.println();
             }
-
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(AuleRes.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException | CsvValidationException ex) {
-            Logger.getLogger(AuleRes.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        return Response.noContent()
-                .build();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }*/
+        return Response.status(Response.Status.BAD_REQUEST).build();
 
     }
 }

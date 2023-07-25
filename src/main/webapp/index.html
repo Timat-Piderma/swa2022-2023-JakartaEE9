@@ -186,23 +186,53 @@
                         <td><a data-rest-test data-rest-test-target href="rest/aule/attachment"><small>GET rest/aule/attachment</small></a></td>
                         <td class="output">Esportazione configurazione aule in formato CSV</td>
                     </tr> 
-                    <tr>
-                        <td>aule/import</td>
-                        <td>POST</td>
-                        <td></td>
-                        <td>
-                            <form action="rest/aule/import" method="post" enctype="multipart/form-data">
-                                <input type="file" name="csv" id="csv">
-                                <input type="submit" value="Carica">
-                            </form>
-                        </td>
-                        <td></td>
-                        <td></td>
-                        <td class="output">Importazione configurazione aule in formato CSV</td>
-                    </tr> 
+                    <!-- <tr>
+                         <td>aule/import</td>
+                         <td>POST</td>
+                         <td></td>
+                         <td>
+                             <input type="file" id="fileInput">
+                             <button onclick="importCSV()">Import CSV</button>
+                             <div id="status"></div>
+                         </td>
+                         <td></td>
+                         <td></td>
+                         <td class="output">Importazione configurazione aule in formato CSV</td>
+                     </tr> -->
                 </tbody>
             </table>
         </div>
+
+        <!-- <script>
+             function importCSV() {
+                 const fileInput = document.getElementById('fileInput');
+                 const file = fileInput.files[0];
+ 
+                 if (!file) {
+                     alert("Please select a CSV file.");
+                     return;
+                 }
+ 
+                 const formData = new FormData();
+                 formData.append('fileCSV', file);
+ 
+                 $.ajax({
+                     url: 'rest/aule/import', // Indica l'URL del tuo endpoint per l'importazione CSV
+                     type: 'POST',
+                     data: formData,
+                     processData: false,
+                     contentType: false,
+                     success: function (response) {
+                         // Azioni da eseguire in caso di successo
+                         document.getElementById('status').textContent = 'CSV import successful.';
+                     },
+                     error: function (xhr, status, error) {
+                         // Azioni da eseguire in caso di errore
+                         document.getElementById('status').textContent = 'CSV import failed.';
+                     }
+                 });
+             }
+         </script> -->
 
         <div class="hidden content-table" id="informazioniAulaTable">
             <table id="autenticazione" width="100%">
