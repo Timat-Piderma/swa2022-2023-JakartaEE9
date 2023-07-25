@@ -157,8 +157,10 @@ input[type=text], input[type=password] {
 }
 a {
     text-decoration: none;
-    color: magenta;
+    color: darkblue;
+    margin: 5px;
 }
 a:hover {
     text-decoration: underline;
+    font-weight: bold;
 }
